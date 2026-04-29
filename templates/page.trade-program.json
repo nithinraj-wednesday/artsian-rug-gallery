@@ -138,10 +138,12 @@
         "text_JYACqX",
         "button_7GGxen"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 300; font-style: normal; color: #706b5f; text-decoration: none; text-align: center; background-color: transparent;}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "section_color_scheme": "",
+        "section_color_scheme": "scheme-1",
         "color_scheme": "",
         "image": "shopify://shop_images/Screenshot_2024-01-13_at_3.35.29_PM.png",
         "image_height": "adapt",
@@ -155,7 +157,7 @@
         "padding_bottom": 80,
         "show_section_divider": false,
         "divider_width": "fixed",
-        "custom_class": ".template--22209286963436__image_with_text_jP6nm6__heading_JbdJni { font-size: 60px; }",
+        "custom_class": "",
         "body_text_size": 26
       }
     },
@@ -181,7 +183,7 @@
         "text_yMEqeR"
       ],
       "custom_css": [
-        ".rich-text__subheading {font-size: 12.432px; color: #ffffff; font-weight: 300}"
+        ".rich-text__subheading {font-size: 12.432px; color: #ffffff; font-weight: 300;}"
       ],
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {

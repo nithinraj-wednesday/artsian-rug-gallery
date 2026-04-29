@@ -87,7 +87,9 @@
         "text_RgW3Dh",
         "button_UF9Kcd"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 500; color: #000;}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "section_color_scheme": "",
@@ -140,6 +142,9 @@
         "heading_rhf6Ur",
         "text_UhiAFk",
         "button_adx8DL"
+      ],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 500; color: #000;}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
@@ -194,6 +199,9 @@
         "text_FgfjFk",
         "button_3V4p4t"
       ],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 500; color: #000;}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "section_color_scheme": "",
@@ -246,6 +254,9 @@
         "heading_EPUVjP",
         "text_yqem4f",
         "button_7Bq9dR"
+      ],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 500; color: #000;}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
@@ -300,6 +311,9 @@
         "text_chPJX7",
         "button_cfW8fw"
       ],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 500; color: #000;}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "section_color_scheme": "",
@@ -353,6 +367,9 @@
         "text_t6KhbK",
         "button_Et8hUY"
       ],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 500; color: #000;}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "section_color_scheme": "",
@@ -405,6 +422,9 @@
         "heading_ztxUHz",
         "text_xrdNEc",
         "button_fzkwQD"
+      ],
+      "custom_css": [
+        ".image-with-text .btn--underline {text-transform: none; font-size: 16px; font-weight: 500; color: #000;}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {

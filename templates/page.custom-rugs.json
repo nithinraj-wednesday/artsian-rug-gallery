@@ -52,6 +52,9 @@
         "text_7BqMAm",
         "button_Xz4GX3"
       ],
+      "custom_css": [
+        ".image-with-text .btn {padding: 12px 24px; font-weight: 300;}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "section_color_scheme": "",
@@ -184,6 +187,9 @@
         "subheading_VJQUYt",
         "heading_tnxi8h",
         "text_NbiJtP"
+      ],
+      "custom_css": [
+        ".image-with-text .rich-text__subheading {color: #83807b; font-size: 12.432px; font-weight: 300;}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
