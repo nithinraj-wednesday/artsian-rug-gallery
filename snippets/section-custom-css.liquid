@@ -1,0 +1,15 @@
+{%- comment -%}
+  Outputs scoped CSS rules from `section.settings.custom_css` (array of strings).
+  Each rule is wrapped in `#shopify-section-{section.id} { ... }` using CSS nesting.
+
+  Usage: {% render 'section-custom-css', section: section %}
+{%- endcomment -%}
+{%- if section.settings.custom_css != blank and section.settings.custom_css.size > 0 -%}
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- for rule in section.settings.custom_css -%}
+      {{ rule }}
+    {%- endfor -%}
+  }
+</style>
+{%- endif -%}

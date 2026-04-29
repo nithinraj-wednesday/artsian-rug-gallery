@@ -1,0 +1,62 @@
+{% comment %}
+  Prestige Collection Price Snippet
+  Multiplies every product card price on the collection page by 12.
+
+  How it works:
+  - Liquid builds a JSON price map (handle → price×12) from collection.products server-side.
+  - JavaScript reads the map and replaces the formatted price strings inside each card's
+    .f-price-item spans so the DOM shows the correct ×12 value.
+  - Handles regular, sale, and compare-at price layouts from the Sleek price.liquid snippet.
+{% endcomment %}
+
+<script>
+  (function () {
+    var prestigePrices = {
+      {%- for product in collection.products -%}
+        {%- assign price12 = product.price_min | times: 12 -%}
+        {%- assign compare12 = product.compare_at_price_min | times: 12 -%}
+        "{{ product.handle }}": {
+          "price": {{ price12 | money | json }},
+          "compare": {% if product.compare_at_price_min > product.price_min %}{{ compare12 | money | json }}{% else %}null{% endif %}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    };
+
+    function applyPrestigePrices() {
+      var cards = document.querySelectorAll('#ProductsList .f-column.card, .products-list .f-column.card');
+      cards.forEach(function (card) {
+        var link = card.querySelector('a[href*="/products/"]');
+        if (!link) return;
+
+        var match = link.getAttribute('href').match(/\/products\/([^?#/]+)/);
+        if (!match) return;
+
+        var data = prestigePrices[match[1]];
+        if (!data) return;
+
+        /* Regular price block (not on sale) */
+        card.querySelectorAll('.f-price__regular .f-price-item--regular').forEach(function (el) {
+          el.textContent = data.price;
+        });
+
+        /* Sale price block — current sale price */
+        card.querySelectorAll('.f-price__sale .f-price-item--sale').forEach(function (el) {
+          el.textContent = data.price;
+        });
+
+        /* Sale price block — compare-at (was) price */
+        if (data.compare) {
+          card.querySelectorAll('.f-price__sale .f-price-item--regular').forEach(function (el) {
+            el.textContent = data.compare;
+          });
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyPrestigePrices);
+    } else {
+      applyPrestigePrices();
+    }
+  })();
+</script>

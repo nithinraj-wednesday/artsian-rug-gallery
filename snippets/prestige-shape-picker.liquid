@@ -1,0 +1,1231 @@
+{% comment %}
+  Prestige Shape Picker Snippet
+  This snippet creates a shape picker using pills and displays relevant input fields based on the selected shape.
+{% endcomment %}
+
+{% assign shapes = 'Rectangular,Round' | split: ',' %}
+
+<!-- Hidden inputs and data container -->
+<input type="hidden" id="selected-variant-id" value="">
+<div class="shape-picker" data-area="0" style="display: none;"></div>
+
+<!-- Shape Selection Accordion -->
+<div class="prestige-accordion-section">
+  <details class="prestige-accordion" open>
+    <summary class="prestige-accordion-header">
+      <h3 class="prestige-accordion-title">
+        Shape
+        <span class="prestige-selected-value" id="selected-shape-display">Rectangular</span>
+      </h3>
+      <svg
+        class="prestige-accordion-icon"
+        width="12"
+        height="8"
+        viewBox="0 0 12 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </summary>
+    <div class="prestige-accordion-content">
+      <div class="shape-selection-cards">
+        {% for shape in shapes %}
+          {% assign is_disabled = false %}
+          {% if shape == 'Rectangular' %}
+            {% assign is_checked = true %}
+          {% elsif shape == 'Round' %}
+            {% assign is_checked = false %}
+          {% endif %}
+          {% assign shape_icon = shape | downcase %}
+          <label class="shape-card {% if is_disabled %}disabled{% endif %} {% if is_checked %}checked{% endif %}">
+            <input
+              type="radio"
+              name="shape"
+              value="{{ shape }}"
+              class="shape-input"
+              {% if is_disabled %}
+                disabled
+              {% endif %}
+              {% if is_checked %}
+                checked
+              {% endif %}
+              form="{{product_form_id}}"
+            >
+            <div class="shape-card-content">
+              <div class="shape-icon">
+                {% render 'fabric-icons', icon: shape_icon %}
+              </div>
+              <div class="shape-info">
+                <h4 class="shape-title">{{ shape }}</h4>
+                <p class="shape-description">With color-matched serged edges</p>
+              </div>
+            </div>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- Size/Dimensions Accordion -->
+<div class="prestige-accordion-section">
+  <details class="prestige-accordion" open>
+    <summary class="prestige-accordion-header">
+      <h3 class="prestige-accordion-title">
+        Size
+        <span class="prestige-selected-value" id="selected-size-display">4' x 3'</span>
+      </h3>
+      <svg
+        class="prestige-accordion-icon"
+        width="12"
+        height="8"
+        viewBox="0 0 12 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </summary>
+    <div class="prestige-accordion-content">
+      <div id="RoundDetails" class="shape-details" style="display: none;">
+        <label for="DiameterSelect" class="form-label">DIAMETER</label>
+        <div class="flex-row">
+          <div class="dimension-input">
+            <div class="select-wrapper">
+              <select id="DiameterSelect" name="diameter" class="form-select"></select>
+              <div class="custom-arrow">
+                {% render 'double-arrow' %}
+              </div>
+            </div>
+          </div>
+          <div class="dimension-input">
+            <div class="select-wrapper">
+              <select id="DiameterInchSelect" name="diameter-inch" class="form-select"></select>
+              <div class="custom-arrow">
+                {% render 'double-arrow' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="RectangularDetails" class="shape-details" style="display: block;">
+        <label for="WidthSelect" class="form-label">WIDTH</label>
+        <div class="flex-row">
+          <div class="dimension-input">
+            <div class="select-wrapper">
+              <select id="WidthSelect" name="width" class="form-select"></select>
+              <div class="custom-arrow">
+                {% render 'double-arrow' %}
+              </div>
+            </div>
+          </div>
+          <div class="dimension-input">
+            <div class="select-wrapper">
+              <select id="WidthInchSelect" name="width-inch" class="form-select"></select>
+              <div class="custom-arrow">
+                {% render 'double-arrow' %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <label for="LengthSelect" class="form-label">LENGTH</label>
+        <div class="flex-row">
+          <div class="dimension-input">
+            <div class="select-wrapper">
+              <select id="LengthSelect" name="length" class="form-select"></select>
+              <div class="custom-arrow">
+                {% render 'double-arrow' %}
+              </div>
+            </div>
+          </div>
+          <div class="dimension-input">
+            <div class="select-wrapper">
+              <select id="LengthInchSelect" name="length-inch" class="form-select">
+                {% for i in (0..11) %}
+                  <option value="{{ i }}">{{ i }} inch</option>
+                {% endfor %}
+              </select>
+              <div class="custom-arrow">
+                {% render 'double-arrow' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} Max/Min Size Info Dialog {% endcomment %}
+        {% render 'max-min-size-dialog' %}
+      <div class="shape-picker-error shape-picker-error-hide" id="shape-picker-error">
+        Minimum of 12 square feet required
+      </div>
+    </div>
+  </details>
+</div>
+
+<script src="{{ 'currency-divisor.js' | asset_url }}" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async function() {
+    var variantMetafields = {};
+    var currency = "{{shop.currency}}"; // get the currency
+    var currencySymbol = "{{ 25 | money | slice: 0, 1 }}" // get the symbol
+    var divisor = currencyDivisors[currency] || 100; // calculating for per divisor
+    var selectedVariantPrice;
+    var selectedVariantSKU;
+    
+    
+    let dimensionChangeFlag = false; // for showing error only when the dimension is changed !
+
+    const shapePicker = document.querySelector('.shape-picker');
+
+    // ========================================================================
+    // Bi-directional localStorage binding
+    // Single source of truth: 'fabricSizePickerState' key
+    // Both collection (size-picker.js) and product (this shape picker)
+    // read/write to the same localStorage key.
+    // ========================================================================
+    const STORAGE_KEY = 'fabricSizePickerState';
+    let _isRebuilding = false; // Guard flag to prevent saving during internal select rebuilds
+
+    /**
+     * Save current shape picker state to localStorage.
+     * This writes back to the SAME key the collection page's size-picker reads,
+     * creating bi-directional data binding between collection and product pages.
+     */
+    function saveToLocalStorage() {
+      // Don't save during internal rebuilds (updateShapeDetails / updateSelectOptions)
+      // to prevent overwriting good dimensions with transient rebuild values
+      if (_isRebuilding) {
+        return;
+      }
+      try {
+        const shape = document.querySelector('input[name="shape"]:checked')?.value;
+        if (!shape) return;
+
+        // Read existing state first to PRESERVE dimensions for the inactive shape.
+        // Without this, switching Rect→Round would overwrite the Rect dimensions
+        // with whatever default values the Rect dropdowns reset to.
+        let existingDimensions = {};
+        try {
+          const existing = localStorage.getItem(STORAGE_KEY);
+          if (existing) {
+            const parsed = JSON.parse(existing);
+            if (parsed.dimensions) {
+              existingDimensions = parsed.dimensions;
+            }
+          }
+        } catch (e) { /* ignore parse errors */ }
+
+        // Build current dimensions from the DOM
+        const currentDimensions = {
+          'width-feet': document.getElementById('WidthSelect')?.value || '0',
+          'width-inches': document.getElementById('WidthInchSelect')?.value || '0',
+          'length-feet': document.getElementById('LengthSelect')?.value || '0',
+          'length-inches': document.getElementById('LengthInchSelect')?.value || '0',
+          'diameter-feet': document.getElementById('DiameterSelect')?.value || '0',
+          'diameter-inches': document.getElementById('DiameterInchSelect')?.value || '0'
+        };
+
+        // Merge: only update the ACTIVE shape's dimensions, keep the other shape's values
+        const mergedDimensions = { ...existingDimensions };
+        if (shape === 'Rectangular') {
+          mergedDimensions['width-feet'] = currentDimensions['width-feet'];
+          mergedDimensions['width-inches'] = currentDimensions['width-inches'];
+          mergedDimensions['length-feet'] = currentDimensions['length-feet'];
+          mergedDimensions['length-inches'] = currentDimensions['length-inches'];
+        } else if (shape === 'Round') {
+          mergedDimensions['diameter-feet'] = currentDimensions['diameter-feet'];
+          mergedDimensions['diameter-inches'] = currentDimensions['diameter-inches'];
+        }
+
+        const state = {
+          shape: shape,
+          dimensions: mergedDimensions
+        };
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (error) {
+      }
+    }
+
+    /**
+     * Build updateShapeDetails overrides from localStorage for a given shape.
+     * Unlike getPersistedDimensions, this does NOT require area >= 12 sqft —
+     * it simply restores whatever the user last set so variant changes don't
+     * wipe out in-progress selections.
+     */
+    function buildOverridesFromStorage(shape) {
+      try {
+        const savedState = localStorage.getItem(STORAGE_KEY);
+        if (!savedState) return null;
+        const state = JSON.parse(savedState);
+        if (!state.dimensions) return null;
+
+        if (shape === 'Rectangular') {
+          const wFeet = state.dimensions['width-feet'];
+          const lFeet = state.dimensions['length-feet'];
+          if (!wFeet && !lFeet) return null;
+          return {
+            widthFeet: wFeet,
+            widthInches: state.dimensions['width-inches'],
+            lengthFeet: lFeet,
+            lengthInches: state.dimensions['length-inches'],
+          };
+        } else if (shape === 'Round') {
+          const dFeet = state.dimensions['diameter-feet'];
+          if (!dFeet) return null;
+          return {
+            diameterFeet: dFeet,
+            diameterInches: state.dimensions['diameter-inches'],
+          };
+        }
+        return null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    /**
+     * Get persisted dimensions from localStorage for a given shape.
+     * Returns the dimension values if they exist and produce a valid area (>= 12 sqft),
+     * or null if we should fall back to Initial Product Dimensions defaults.
+     */
+    function getPersistedDimensions(shape) {
+      try {
+        const savedState = localStorage.getItem(STORAGE_KEY);
+        if (!savedState) return null;
+
+        const state = JSON.parse(savedState);
+        if (!state.dimensions) return null;
+
+        // Validate that the persisted dimensions for the requested shape produce valid area
+        if (shape === 'Rectangular') {
+          const wFeet = parseFloat(state.dimensions['width-feet']) || 0;
+          const wInches = parseFloat(state.dimensions['width-inches']) || 0;
+          const lFeet = parseFloat(state.dimensions['length-feet']) || 0;
+          const lInches = parseFloat(state.dimensions['length-inches']) || 0;
+          const totalWidth = wFeet + (wInches / 12);
+          const totalLength = lFeet + (lInches / 12);
+          const area = totalWidth * totalLength;
+          if (area >= 12) {
+            return {
+              feet: wFeet.toString(),
+              inches: wInches.toString(),
+              lengthFeet: lFeet.toString(),
+              lengthInches: lInches.toString()
+            };
+          }
+        } else if (shape === 'Round') {
+          const dFeet = parseFloat(state.dimensions['diameter-feet']) || 0;
+          const dInches = parseFloat(state.dimensions['diameter-inches']) || 0;
+          const totalDiameter = dFeet + (dInches / 12);
+          const area = totalDiameter * totalDiameter;
+          if (area >= 12) {
+            return {
+              feet: dFeet.toString(),
+              inches: dInches.toString()
+            };
+          }
+        }
+
+        return null;
+      } catch (error) {
+        return null;
+      }
+    }
+    
+    // Get pricing configurations
+    let pricesConfigs = {};
+    let isError = false;
+    
+    if (typeof PricingConfigs !== 'undefined' && PricingConfigs.getConfigs) {
+      try {
+        const result = await PricingConfigs.getConfigs();
+        pricesConfigs = result.configs || {};
+        isError = result.isError || false;
+      } catch (error) {
+        isError = true;
+      }
+    } else {
+      isError = true;
+    }
+    
+    {% for variant in product.variants %}
+    variantMetafields["{{ variant.id }}"] = {
+      price: {{ variant.price }},
+      max_diameter: {{ variant.metafields.fabric.max_diameter.value | default: '0.0' }},
+      max_length: {{ variant.metafields.fabric.max_length.value | default: '0.0' }},
+      max_width: {{ variant.metafields.fabric.max_width.value | default: '0.0' }},
+      sku: "{{ variant.sku }}"
+    };
+  {% endfor %}
+  
+
+  const unit = '{{ product.metafields.custom.dimension_unit | default: "ft" }}';
+
+  const diameterSelect = document.getElementById('DiameterSelect');
+  const diameterInchSelect = document.getElementById('DiameterInchSelect');
+  const lengthSelect = document.getElementById('LengthSelect');
+  const lengthInchSelect = document.getElementById('LengthInchSelect');
+  const widthSelect = document.getElementById('WidthSelect');
+  const widthInchSelect = document.getElementById('WidthInchSelect');
+  const selectedVariantIdInput = document.getElementById('selected-variant-id');
+
+
+  // Function to extract the 'variant' parameter from the URL
+  function getVariantIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('variant');
+  }
+
+  // Function to update the options in a select element
+  // overrideValue: optional number to pre-select instead of using Initial Product Dimensions
+  function updateSelectOptions(selectElement, maxValue, overrideValue) {
+    const defaults = {
+      WidthSelect: {{ initial_width | default: 4 }},
+      LengthSelect: {{ initial_length | default: 3 }},
+      DiameterSelect: {{ initial_diameter | default: 4 }},
+    };
+
+    const inchElementIds = {
+      LengthSelect: 'LengthInchSelect',
+      WidthSelect: 'WidthInchSelect',
+      DiameterSelect: 'DiameterInchSelect',
+    };
+
+    const unit = "feet"; // Assuming unit is "feet"
+    // Use override value (from localStorage) if provided, otherwise fall back to Initial Product Dimensions
+    const minimumValue = (overrideValue !== undefined && overrideValue !== null)
+      ? parseInt(overrideValue, 10)
+      : (defaults[selectElement.id] || 0);
+
+    selectElement.innerHTML = ''; // Clear existing options
+
+    if(maxValue === 0) {
+      // If maxValue is 0, show only one option with value 0
+      const option = document.createElement('option');
+      option.value = 0;
+      option.textContent = `0 ${unit}`;
+      selectElement.appendChild(option);
+      return;
+    }
+
+    // Handle width and diameter with inches
+    const {
+      maxFeet,
+      maxInch
+    } = convertToFeetAndInches(maxValue);
+
+    // Populate feet options
+    for(let i = 1; i <= maxFeet; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = `${i} ${unit}`;
+      if(i === minimumValue) {
+        option.selected = true;
+      }
+      selectElement.appendChild(option);
+    }
+
+    // Add an event listener to dynamically update the inch options
+    selectElement.addEventListener('change', function() {
+      const selectedFeet = parseInt(this.value, 10);
+      const inchSelectId = inchElementIds[selectElement.id]
+      const inchSelect = document.getElementById(inchSelectId);
+
+      if(inchSelect) {
+        inchSelect.innerHTML = ''; // Clear existing inch options
+
+        // Determine the max inches for the selected feet
+        const maxInchesForSelectedFeet = selectedFeet === maxFeet ? maxInch : 11;
+
+        // Populate inch options
+        for(let i = 0; i <= maxInchesForSelectedFeet; i++) {
+          const inchOption = document.createElement('option');
+          inchOption.value = i;
+          inchOption.textContent = `${i} inch`;
+          inchSelect.appendChild(inchOption);
+        }
+      }
+    });
+
+    // Trigger the change event initially to populate inches
+    selectElement.dispatchEvent(new Event('change'));
+
+    // Update the price after the options are updated
+    setTimeout(() => {
+      if(!isError) {
+        updatePrice();
+      } else {
+        const priceElement = document.querySelector('.prestige-price');
+        if (priceElement) {
+          const productId = '{{ product.id }}';
+          const productTitle = encodeURIComponent('{{ product.title }}');
+          priceElement.innerHTML = `We're unable to display price details at the moment. Please <a href='/pages/contact?product_id=${productId}&product_title=${productTitle}'>contact us</a> for price details.`;
+        }
+      }
+    }, 0);
+  }
+
+  // Function to update shape details based on the selected variant
+  // persistedOverrides: optional object with feet overrides from localStorage
+  function updateShapeDetails(persistedOverrides) {
+    // Set rebuilding flag to prevent saveToLocalStorage from firing
+    // during select option rebuilds (which trigger change events)
+    _isRebuilding = true;
+
+    const selectedVariantId = selectedVariantIdInput.value;
+    const selectedVariant = variantMetafields[selectedVariantId] || {};
+    selectedVariantSKU = variantMetafields[selectedVariantId].sku;
+    selectedVariantPrice = selectedVariant.price;
+
+
+    diameterInchSelect.selectedIndex = 0;
+    lengthInchSelect.selectedIndex = 0;
+    widthInchSelect.selectedIndex = 0;
+
+    // Update max/min dialog values using the global function
+    if (window.updateMaxMinDialogValues) {
+      window.updateMaxMinDialogValues(selectedVariant);
+    }
+
+    if(selectedVariant.max_diameter) {
+      diameterSelect.disabled = false;
+      diameterInchSelect.disabled = false;
+      updateSelectOptions(diameterSelect, selectedVariant.max_diameter,
+        persistedOverrides ? persistedOverrides.diameterFeet : undefined);
+    } else {
+      diameterSelect.disabled = true;
+      diameterInchSelect.disabled = true;
+      updateSelectOptions(diameterSelect, 0);
+    }
+    if(selectedVariant.max_length) {
+      lengthSelect.disabled = false;
+      lengthInchSelect.disabled = false;
+      updateSelectOptions(lengthSelect, selectedVariant.max_length,
+        persistedOverrides ? persistedOverrides.lengthFeet : undefined);
+    } else {
+      lengthSelect.disabled = true;
+      lengthInchSelect.disabled = true;
+      updateSelectOptions(lengthSelect, 0)
+    }
+    if(selectedVariant.max_width) {
+      widthSelect.disabled = false;
+      widthInchSelect.disabled = false;
+      updateSelectOptions(widthSelect, selectedVariant.max_width,
+        persistedOverrides ? persistedOverrides.widthFeet : undefined);
+    } else {
+      widthSelect.disabled = true;
+      widthInchSelect.disabled = true;
+      updateSelectOptions(widthSelect, 0)
+    }
+
+    // After select options are rebuilt, set inch values from persisted state
+    if (persistedOverrides) {
+      setTimeout(() => {
+        if (persistedOverrides.widthInches && widthInchSelect) {
+          widthInchSelect.value = persistedOverrides.widthInches;
+        }
+        if (persistedOverrides.lengthInches && lengthInchSelect) {
+          lengthInchSelect.value = persistedOverrides.lengthInches;
+        }
+        if (persistedOverrides.diameterInches && diameterInchSelect) {
+          diameterInchSelect.value = persistedOverrides.diameterInches;
+        }
+        // Clear rebuilding flag BEFORE saving — rebuild is complete
+        _isRebuilding = false;
+        updateSizeDisplay();
+        if (!isError) {
+          updatePrice();
+        }
+        // Save back to localStorage after restoration is complete
+        saveToLocalStorage();
+      }, 50);
+    } else {
+      // No overrides — just clear the rebuilding flag.
+      setTimeout(() => {
+        _isRebuilding = false;
+      }, 50);
+    }
+  }
+
+  // Set the selectedVariantId based on the URL or default to the first variant
+  const variantIdFromUrl = getVariantIdFromUrl();
+  if(variantIdFromUrl && variantMetafields[variantIdFromUrl]) {
+    selectedVariantIdInput.value = variantIdFromUrl;
+  } else {
+    // Set to the first key in variantMetafields
+    selectedVariantIdInput.value = Object.keys(variantMetafields)[0];
+  }
+
+  // Call updateShapeDetails to set the initial shape details
+  // Check localStorage first to avoid a "flash" of default values before restore
+  (function initialSetup() {
+    const currentShape = document.querySelector('input[name="shape"]:checked')?.value || 'Rectangular';
+    const persisted = getPersistedDimensions(currentShape);
+    let overrides = null;
+    if (persisted) {
+      if (currentShape === 'Rectangular') {
+        overrides = { widthFeet: persisted.feet, widthInches: persisted.inches, lengthFeet: persisted.lengthFeet, lengthInches: persisted.lengthInches };
+      } else if (currentShape === 'Round') {
+        overrides = { diameterFeet: persisted.feet, diameterInches: persisted.inches };
+      }
+    }
+    updateShapeDetails(overrides);
+  })();
+
+  // Function to update price based on selected dimensions
+  function updatePrice() {
+    let area = 0;
+    const shape = document.querySelector('input[name="shape"]:checked')?.value;
+
+    if(shape === 'Round') {
+      const diameter = parseFloat(diameterSelect.value);
+      const diameterInches = parseFloat(diameterInchSelect.value);
+
+      const totalDiameter = diameter + diameterInches / 12;
+      if(totalDiameter) {
+        area = totalDiameter * totalDiameter;
+      }
+
+      // Update Size property for cart display
+      const sizeInput = document.getElementById('line-item-size');
+      if (sizeInput && diameter > 0) {
+        let sizeStr = diameter + "'";
+        if (diameterInches > 0) sizeStr += ' ' + diameterInches + '"';
+        sizeStr += ' Diameter';
+        sizeInput.value = sizeStr;
+      }
+
+      calculatePrice(area, false, shape, totalDiameter);
+      shapePicker.dataset.area = area; // set for add to cart action to know if the area is valid one!
+
+    } else if(shape === 'Rectangular') {
+      const length = parseFloat(lengthSelect.value);
+      const lengthInches = parseFloat(lengthInchSelect.value);
+      const width = parseFloat(widthSelect.value);
+      const widthInches = parseFloat(widthInchSelect.value);
+      const totalLength = length + lengthInches / 12;
+      const totalWidth = width + widthInches / 12;
+      if(totalLength && totalWidth) {
+        area = totalLength * totalWidth;
+      }
+
+      if(area >= 12) {
+        shapePicker.dataset.area = area;
+
+        // Update Size property for cart display
+        const sizeInput = document.getElementById('line-item-size');
+        if (sizeInput && width > 0 && length > 0) {
+          let sizeStr = width + "'";
+          if (widthInches > 0) sizeStr += ' ' + widthInches + '"';
+          sizeStr += ' x ' + length + "'";
+          if (lengthInches > 0) sizeStr += ' ' + lengthInches + '"';
+          sizeInput.value = sizeStr;
+        }
+
+        calculatePrice(area, false, shape, 0, totalLength, totalWidth);
+      } else {
+        calculatePrice(1, true, shape);
+        shapePicker.dataset.area = 0; // set for add to cart action to know if the area is valid one!
+        const priceElement = document.querySelector('.prestige-price');
+        if (priceElement) {
+          priceElement.innerHTML = "Not available for order";
+        }
+
+        document.getElementById('shape-picker-error').classList.remove('shape-picker-error-hide');
+      }
+    }
+
+    function calculatePrice(area, defaultPrice = false, shape = 'Rectangular', diameter = 0, length = 0, width = 0) {
+      document.getElementById('shape-picker-error').classList.add('shape-picker-error-hide');
+      const rugPadRadios = document.querySelectorAll('.rug-pad-radio');
+      const rugProtectionRadios = document.querySelectorAll('.rug-protection-radio');
+      const priceElement = document.querySelector('.prestige-price');
+      
+      if (priceElement) {
+      }
+
+      if (priceElement) {
+        priceElement.style.cssText = "font-weight: 500; font-size:2rem;"
+      }
+
+      let selectedRugPadPrice = 0;
+      let selectedRugProtectionPrice = 0;
+
+      if(rugPadRadios) {
+        // Ensure area is at least 4
+        rugPadRadios.forEach(function(radio) {
+          const priceElement = radio.closest('.rug-pad-option').querySelector('.rug-pad-price');
+          const basePrice = parseFloat(priceElement.getAttribute('data-price-value')); // Original price from metafield
+          const newPrice = (area * basePrice);
+          const formattedNewPrice = new Intl.NumberFormat('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }).format(newPrice);
+          // Calculate new price based on area
+          if(defaultPrice) {
+            priceElement.textContent = `$${newPrice} / sqft`;
+          } else {
+            priceElement.textContent = `$${formattedNewPrice}`;
+          } // Update displayed price
+          priceElement.setAttribute('data-calculated-price', newPrice);
+          if(radio.checked) {
+            selectedRugPadPrice = newPrice;
+          }
+        });
+      }
+
+      if(rugProtectionRadios) {
+        rugProtectionRadios.forEach(function(radio) {
+          const priceElement = radio.closest('.rug-protection-option').querySelector('.rug-protection-price');
+          const basePrice = parseFloat(priceElement.getAttribute('data-protection-price-value')); // Original price from metafield
+          const newPrice = (area * basePrice); // Calculate new price based on area // Update displayed price
+          const formattedNewPrice = new Intl.NumberFormat('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }).format(newPrice);
+          if(defaultPrice) {
+            priceElement.textContent = `$${newPrice} / sqft`;
+          } else {
+            priceElement.textContent = `$${formattedNewPrice}`;
+          }
+          priceElement.setAttribute('data-calculated-protection-price', newPrice);
+          if(radio.checked) {
+            selectedRugProtectionPrice = newPrice;
+          }
+        });
+      }
+
+      if(priceElement && !defaultPrice) { // Check type of selectedRugPadPrice
+        // Ensure selectedRugPadPrice is a number
+        const boundPrice = getBoundPrice(selectedVariantSKU, area); // this multiple is being calculated acc to area bounds config from backend
+
+        if(!boundPrice) {
+          priceElement.innerHTML = "Price not available";
+          return;
+        }
+
+        const selectedRugPadPriceNum = parseFloat(selectedRugPadPrice) || 0; // Convert to number, default to 0 if NaN
+        const selectedRugProtectionPriceNum = parseFloat(selectedRugProtectionPrice) || 0;
+        
+        // Calculate machine serging price
+        let machineSergingPrice = 0;
+        const edgeStyleData = document.querySelector('.prestige-edge-style-data');
+        const sergingPricePerFoot = edgeStyleData ? parseFloat(edgeStyleData.getAttribute('data-serging-price')) || 0 : 0;
+        
+        if (sergingPricePerFoot > 0) {
+          if (shape === 'Round' && diameter > 0) {
+            // For round rugs: circumference = π * diameter
+            const circumference = Math.PI * diameter;
+            machineSergingPrice = circumference * sergingPricePerFoot;
+          } else if (shape === 'Rectangular' && length > 0 && width > 0) {
+            // For rectangular rugs: perimeter = 2 * (length + width)
+            const perimeter = 2 * (length + width);
+            machineSergingPrice = perimeter * sergingPricePerFoot;
+          }
+        }
+        
+        const price = area * parseFloat(boundPrice);
+        
+        // Calculate price and ensure it's a number
+        priceElement.setAttribute('data-dimension-modified-price', price);
+        priceElement.setAttribute('data-rug-pad-price', selectedRugPadPriceNum);
+        priceElement.setAttribute('data-rug-protection-price', selectedRugProtectionPriceNum);
+        priceElement.setAttribute('data-serging-price', machineSergingPrice.toFixed(2));
+        
+        // Calculate the total formatted price including serging
+        const totalFormattedPrice = Math.ceil(price + selectedRugPadPriceNum + selectedRugProtectionPriceNum + machineSergingPrice);
+        priceElement.setAttribute('data-modified-price', totalFormattedPrice);
+
+
+        // Format final price with two decimals
+        const formattedViewPrice = new Intl.NumberFormat('en-US', {
+          style: 'decimal',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        }).format(totalFormattedPrice);
+        const formattedPrice = `${currencySymbol}${formattedViewPrice}`; // Ensure it's formatted correctly
+        priceElement.innerHTML = formattedPrice;
+      }
+    }
+  }
+
+  // Function to update size display
+  function updateSizeDisplay() {
+    const sizeDisplay = document.getElementById('selected-size-display');
+    if (!sizeDisplay) return;
+
+    const selectedShape = document.querySelector('input[name="shape"]:checked');
+    if (!selectedShape) return;
+
+    const shapeName = selectedShape.value;
+
+    if (shapeName === 'Round') {
+      const diameter = document.getElementById('DiameterSelect')?.value || '0';
+      const diameterInch = document.getElementById('DiameterInchSelect')?.value || '0';
+      sizeDisplay.textContent = `${diameter}' ${diameterInch}"`;
+    } else if (shapeName === 'Rectangular') {
+      const width = document.getElementById('WidthSelect')?.value || '0';
+      const widthInch = document.getElementById('WidthInchSelect')?.value || '0';
+      const length = document.getElementById('LengthSelect')?.value || '0';
+      const lengthInch = document.getElementById('LengthInchSelect')?.value || '0';
+      sizeDisplay.textContent = `${width}' ${widthInch}" x ${length}' ${lengthInch}"`;
+    }
+  }
+
+  // Function to update shape display
+  function updateShapeDisplay() {
+    const shapeDisplay = document.getElementById('selected-shape-display');
+    const selectedShape = document.querySelector('input[name="shape"]:checked');
+    if (shapeDisplay && selectedShape) {
+      shapeDisplay.textContent = selectedShape.value;
+    }
+  }
+
+  // Shape card click handler
+  document.querySelectorAll('.shape-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      dimensionChangeFlag = false;
+      const input = this.querySelector('input[name="shape"]');
+      const shapeName = input.value;
+
+      // Update header display
+      document.getElementById('selected-shape-display').textContent = shapeName;
+
+      document.querySelectorAll('.shape-card').forEach(function(c) {
+        c.classList.remove('checked');
+      });
+
+      card.classList.add('checked');
+      document.querySelectorAll('.shape-details').forEach(function(detail) {
+        detail.style.display = 'none';
+      });
+
+      const roundInfo = document.querySelector('.round-info');
+      const rectangleInfo = document.querySelector('.rectangle-info');
+
+      if(roundInfo) roundInfo.style.display = "none";
+      if(rectangleInfo) rectangleInfo.style.display = "none";
+
+      if(shapeName === 'Round') {
+        document.getElementById('RoundDetails').style.display = 'block';
+        if(roundInfo) roundInfo.style.display = "flex";
+      } else if(shapeName === 'Rectangular') {
+        document.getElementById('RectangularDetails').style.display = 'block';
+        if(rectangleInfo) rectangleInfo.style.display = "flex";
+      }
+      diameterInchSelect.selectedIndex = 0;
+
+      // Check localStorage for persisted dimensions for this shape
+      // This handles: user changes dims on product page → switches shape → switches back
+      // Without this, it would reset to Initial Product Dimensions defaults
+      const persisted = getPersistedDimensions(shapeName);
+      let overrides = null;
+      if (persisted) {
+        if (shapeName === 'Rectangular') {
+          overrides = {
+            widthFeet: persisted.feet,
+            widthInches: persisted.inches,
+            lengthFeet: persisted.lengthFeet,
+            lengthInches: persisted.lengthInches
+          };
+        } else if (shapeName === 'Round') {
+          overrides = {
+            diameterFeet: persisted.feet,
+            diameterInches: persisted.inches
+          };
+        }
+      }
+
+      updateShapeDetails(overrides);
+      if(!isError && !overrides) {
+        // Only call updatePrice here if we didn't pass overrides
+        // (overrides path calls updatePrice in its own setTimeout callback)
+        updatePrice();
+      }
+    });
+  });
+
+  // Listen for changes in the dimension inputs to update the price
+  document.querySelectorAll('#DiameterSelect, #DiameterInchSelect, #LengthSelect, #LengthInchSelect, #WidthSelect, #WidthInchSelect').forEach((input) => {
+    input.addEventListener('change', () => {
+      dimensionChangeFlag = true;
+      updateSizeDisplay();
+      if(!isError) {
+        updatePrice();
+      }
+      // Bi-directional binding: persist every dimension change back to localStorage
+      // so the collection page's size-picker reads the updated dimensions
+      saveToLocalStorage();
+    });
+  });
+
+  // Call on shape change
+  document.querySelectorAll('input[name="shape"]').forEach((input) => {
+    const existingListener = input.onclick;
+    input.addEventListener('change', () => {
+      updateShapeDisplay();
+      updateSizeDisplay();
+    });
+  });
+
+  // Initialize displays
+  updateShapeDisplay();
+  updateSizeDisplay();
+
+  /**
+   * Restore shape from localStorage on initial page load.
+   * The initialSetup() IIFE above already handles restoring dimensions for the
+   * default shape (Rectangular). This function only needs to handle the case
+   * where localStorage has a DIFFERENT shape (e.g., user was on Round on collection page).
+   *
+   * When a different shape is stored, clicking the shape card triggers the
+   * shape card click handler, which calls getPersistedDimensions() and passes
+   * overrides to updateShapeDetails() — so dimensions are automatically restored.
+   */
+  function restoreShapeFromLocalStorage() {
+    try {
+      const savedState = localStorage.getItem(STORAGE_KEY);
+      if (!savedState) return;
+
+      const state = JSON.parse(savedState);
+      if (!state.shape || !state.dimensions) return;
+
+      const currentShape = document.querySelector('input[name="shape"]:checked')?.value;
+
+      // Only act if the stored shape differs from the current default
+      if (state.shape !== currentShape) {
+        // Validate area meets minimum before switching
+        const persisted = getPersistedDimensions(state.shape);
+        if (!persisted) {
+          return;
+        }
+
+        const targetShapeInput = document.querySelector(`input[name="shape"][value="${state.shape}"]`);
+        if (!targetShapeInput) return;
+
+        // Click the shape card — triggers handler which reads localStorage and applies overrides
+        const targetShapeCard = targetShapeInput.closest('.shape-card');
+        if (targetShapeCard) {
+          targetShapeCard.click();
+        }
+      }
+      // Same-shape case is already handled by initialSetup() above
+    } catch (error) {
+    }
+  }
+
+  // Restore shape if different from default (dimensions already handled by initialSetup)
+  restoreShapeFromLocalStorage();
+
+  function getBoundPrice(sku, area) {
+    // Check if the SKU exists in the configs
+    if(!pricesConfigs || !pricesConfigs[sku]) {
+      return null;
+    }
+    const skuConfig = pricesConfigs[sku];
+    const range = skuConfig.find(
+      (config) => area >= config.areaLowerBound && area < config.areaUpperBound
+    );
+    // Return the bound price
+    return range ? range.price : null;
+  }
+
+  // Listen for changes in the variant selection — restore localStorage values first
+  selectedVariantIdInput.addEventListener('change', function() {
+    const shape = document.querySelector('input[name="shape"]:checked')?.value || 'Rectangular';
+    updateShapeDetails(buildOverridesFromStorage(shape));
+  });
+
+  // Listen for variant changes from the main variant picker
+  document.addEventListener('variant:change', function(event) {
+    if (event.detail && event.detail.variant && event.detail.variant.id) {
+      selectedVariantIdInput.value = event.detail.variant.id;
+      const shape = document.querySelector('input[name="shape"]:checked')?.value || 'Rectangular';
+      updateShapeDetails(buildOverridesFromStorage(shape));
+    }
+  });
+  
+  // Also listen for changes on the variant picker form
+  const variantPickerForm = document.querySelector('variant-picker');
+  if (variantPickerForm) {
+    variantPickerForm.addEventListener('change', function(event) {
+      // Get the selected variant from the form
+      const formData = new FormData(event.currentTarget.querySelector('form'));
+      const selectedOptions = Array.from(formData.entries());
+      
+      // Find matching variant
+      const matchingVariant = Object.keys(variantMetafields).find(variantId => {
+        const variant = {{product.variants | json}}.find(v => v.id.toString() === variantId);
+        if (!variant) return false;
+        
+        return selectedOptions.every(([optionName, optionValue]) => {
+          const optionIndex = variant.options.indexOf(optionValue);
+          return optionIndex !== -1;
+        });
+      });
+      
+      if (matchingVariant) {
+        selectedVariantIdInput.value = matchingVariant;
+        const shape = document.querySelector('input[name="shape"]:checked')?.value || 'Rectangular';
+        updateShapeDetails(buildOverridesFromStorage(shape));
+      }
+    });
+  }
+
+  // Helper function for updateSelectOptions
+  function convertToFeetAndInches(totalInches) {
+    if (totalInches < 1) {
+      return null;
+    }
+    const feet = Math.floor(totalInches / 12);
+    let inches = totalInches % 12;
+    if (inches < 1) {
+      inches = 0;
+    }
+    return {maxFeet : feet , maxInch : inches } ;
+  }
+});
+</script>
+
+<style>
+  .option-block {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  .option-block h5 {
+    margin: 0 0 16px 0;
+    font-weight: 600;
+  }
+
+  .picker-header {
+    font-size: 1.4rem;
+    font-family: var(--font-body-family);
+    text-transform: none;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+  }
+
+  .shape-selection-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .shape-card {
+    padding: 16px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    display: block;
+  }
+
+  .shape-card-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .shape-icon {
+    flex-shrink: 0;
+     color: #000;
+  }
+
+  .shape-icon svg {
+    display: block;
+    width: 60px;
+    height: 60px;
+  }
+
+  .shape-icon svg path,
+  .shape-icon svg rect,
+  .shape-icon svg circle,
+  .shape-icon svg line {
+    stroke: #000;
+  }
+
+  .shape-info {
+    flex: 1;
+    text-align: left;
+  }
+
+  .shape-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #000;
+  }
+
+  .shape-description {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .shape-card.checked {
+    border: 2px solid #000;
+    background-color: #f9f9f9;
+  }
+
+  .shape-card.checked .shape-icon {
+    color: #000;
+  }
+
+  .shape-card:hover:not(.disabled) {
+    border-color: #999;
+  }
+
+  .shape-card.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #f5f5f5;
+  }
+
+  .shape-input {
+    display: none !important;
+  }
+
+  .shape-details {
+    margin-top: 16px;
+  }
+
+  .shape-details-container {
+    margin-top: 16px;
+  }
+
+  .flex-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .dimension-input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-family: var(--font-body--family);
+    margin-bottom: 8px;
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .select-wrapper {
+    padding: 12px 16px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 0;
+    transition: border-color 0.2s ease;
+  }
+
+  .select-wrapper:hover {
+    border-bottom-color: #999;
+  }
+
+  .select-wrapper:focus-within {
+    border-bottom-color: #000;
+    outline: none;
+  }
+
+  select {
+    border: none !important;
+    font-size: 14px;
+    background: transparent;
+    outline: 0;
+    margin: 0 !important;
+    color: #333;
+    appearance: none;
+    box-shadow: none !important;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 400;
+  }
+
+  select:focus {
+    border: none !important;
+    outline: none !important;
+  }
+
+  .custom-arrow {
+    {% comment %} position: absolute;
+    right: 12px; {% endcomment %}
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    color: #000;
+  }
+
+  .custom-arrow svg {
+    width: 8px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .shape-picker-error {
+    font-size: 12px;
+    color: #d32f2f;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background-color: #ffebee;
+    border-radius: 4px;
+    border-left: 3px solid #d32f2f;
+  }
+
+  .shape-picker-error-hide {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .picker-header {
+      font-size: 1.3rem;
+    }
+
+    .shape-selection-cards {
+      gap: 10px;
+    }
+
+    .shape-card {
+      padding: 14px 16px;
+    }
+
+    .shape-card-content {
+      gap: 12px;
+    }
+
+    .shape-icon svg {
+      width: 50px;
+      height: 50px;
+    }
+
+    .shape-title {
+      font-size: 14px;
+    }
+
+    .shape-description {
+      font-size: 12px;
+    }
+
+    .flex-row {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+</style>

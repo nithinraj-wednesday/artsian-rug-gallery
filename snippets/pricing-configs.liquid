@@ -1,0 +1,64 @@
+{% comment %}
+  Pricing Configs Global Object
+  Fetches and manages pricing configurations for the product
+{% endcomment %}
+
+<script>
+  const productId = {{ product.id | json }};
+  const apiUrl = `https://dev.fabric-middleware.ngrok.app/v2/products/${productId}/prices`;
+
+  {% assign shop_name = shop.domain | split: "." | first %}
+  let shopName = "{{shop_name}}";
+  let shopId = "{{shop.id}}";
+
+  // Use an IIFE to encapsulate the logic
+  const PricingConfigs = (() => {
+    let configs = null; // Private variable to store configurations
+    let isLoaded = false; // Flag to check if configs are loaded
+    let isError = false; // Flag to indicate if an error occurred
+    let fetchPromise = null; // Promise for fetch operation
+
+    async function fetchConfigs() {
+      if (isLoaded) return { configs, isError }; // Prevent re-fetching
+
+      if (!fetchPromise) {
+        fetchPromise = (async () => {
+          try {
+            const response = await fetch(apiUrl, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Shop-Name': shopName,
+                'shop-id': shopId,
+              },
+            });
+            if (!response.ok) {
+              throw new Error(`Failed to fetch pricing configs: ${response.statusText}`);
+            }
+            const data = await response.json();
+            configs = data.variants;
+            isLoaded = true; // Mark as loaded
+            isError = false; // No error occurred
+          } catch (error) {
+            console.error("Error fetching pricing configs:", error);
+            isError = true; // Mark as an error
+          }
+          return { configs, isError }; // Return both configs and error status
+        })();
+      }
+
+      return fetchPromise;
+    }
+
+    return {
+      init: fetchConfigs, // Initializes the fetch process
+      getConfigs: async () => {
+        if (isLoaded) return { configs, isError };
+        return await fetchConfigs();
+      }, // Accessor for the configs and error status
+    };
+  })();
+
+  // Load configurations on page load
+  PricingConfigs.init();
+</script>

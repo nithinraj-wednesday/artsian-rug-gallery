@@ -1,0 +1,312 @@
+{% comment %}
+  Prestige Edge Style Picker Snippet
+  This snippet adds edge style selection in an accordion format for prestige products.
+  Shows the featured image for the selected variant's edge style.
+  Calculates machine serging price based on perimeter (2 * (length + width)) or circumference (π * diameter)
+{% endcomment %}
+
+<div class="prestige-accordion-section prestige-edge-style-wrapper">
+  <details class="prestige-accordion" open>
+    <summary class="prestige-accordion-header">
+      <div class="prestige-section-header">
+        <h3 class="prestige-accordion-title">Edge style</h3>
+        <button
+          class="prestige-edge-style-info-btn"
+          type="button"
+          title="View edge style image"
+          aria-label="View edge style image"
+        >
+          {% render 'info-icon' %}
+        </button>
+        <span class="prestige-selected-value" id="edge-style-value">: Machine Serging</span>
+      </div>
+      <svg
+        class="prestige-accordion-icon"
+        width="12"
+        height="8"
+        viewBox="0 0 12 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </summary>
+    <div class="prestige-accordion-content">
+      <div class="prestige-edge-style-note">
+        <p style="font-size: 14px; color: #666; margin: 0 0 12px 0;">
+          Machine serging is the standard edge finish
+          {% if shop.metaobjects.carpetworkroom_edge_style.values %}
+            {% assign edge_styles = shop.metaobjects.carpetworkroom_edge_style.values | sort: 'updated_at' %}
+            {% for edge_style in edge_styles %}
+              {% assign edge_name_lower = edge_style.name.value | downcase %}
+              {% if edge_name_lower contains 'serg' %}
+                ({{ edge_style.price.value | money }} per linear foot)
+                {% break %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          . Click the info icon to see the edge detail.
+        </p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- Hidden input for cart properties -->
+<input
+  type="hidden"
+  name="properties[Edge style]"
+  class="edge-style-select"
+  form="{{ product_form_id }}"
+  value="Machine Serging"
+>
+
+<!-- Hidden data attributes for pricing -->
+<div
+  class="prestige-edge-style-data"
+  style="display: none;"
+  {% if shop.metaobjects.carpetworkroom_edge_style.values %}
+    {% assign edge_styles = shop.metaobjects.carpetworkroom_edge_style.values | sort: 'updated_at' %}
+    {% for edge_style in edge_styles %}
+      {% assign edge_name_lower = edge_style.name.value | downcase %}
+      {% if edge_name_lower contains 'serg' %}
+        data-serging-price="{{ edge_style.price.value }}"
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+></div>
+
+<!-- Dialog Box for Edge Style Image -->
+<div class="prestige-edge-style-dialog-overlay" id="prestige-edge-style-dialog">
+  <div class="prestige-edge-style-dialog-box">
+    <button class="prestige-edge-style-close-btn" type="button" aria-label="Close dialog">&times;</button>
+    <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 1.25rem; text-align: left;">Edge Style Detail</h3>
+    <div class="prestige-edge-style-image-container">
+      <img
+        id="prestige-edge-style-image"
+        src="{{ product.selected_or_first_available_variant.featured_media.preview_image | image_url: width: 600 }}"
+        alt="Edge Style Detail"
+        class="prestige-edge-style-image"
+        width="600"
+        height="600"
+        loading="lazy"
+      >
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Edge Style Accordion Specific Styles */
+  .prestige-edge-style-wrapper {
+    margin-bottom: 0;
+  }
+
+  .prestige-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .prestige-edge-style-info-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 2px;
+  }
+
+  .prestige-edge-style-info-btn:hover {
+    opacity: 0.7;
+  }
+
+  .prestige-edge-style-note p {
+    line-height: 1.5;
+  }
+
+  /* Dialog Overlay Styles */
+  .prestige-edge-style-dialog-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .prestige-edge-style-dialog-overlay.active {
+    display: flex;
+  }
+
+  .prestige-edge-style-dialog-box {
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    position: relative;
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .prestige-edge-style-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    color: #333;
+    padding: 4px 8px;
+    transition: color 0.2s ease;
+  }
+
+  .prestige-edge-style-close-btn:hover {
+    color: #000;
+  }
+
+  .prestige-edge-style-image-container {
+    margin-top: 8px;
+  }
+
+  .prestige-edge-style-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 749px) {
+    .prestige-edge-style-dialog-box {
+      padding: 16px;
+      max-width: 95%;
+    }
+
+    .prestige-edge-style-close-btn {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const openDialogBtn = document.querySelector('.prestige-edge-style-info-btn');
+    const closeDialogBtn = document.querySelector('.prestige-edge-style-close-btn');
+    const dialogOverlay = document.getElementById('prestige-edge-style-dialog');
+    const featuredImageElement = document.getElementById('prestige-edge-style-image');
+    const defaultImage = '{{ "default_serg.jpg" | asset_url }}';
+    const productVariants = {{ product.variants | json }};
+
+    // Open dialog
+    if (openDialogBtn) {
+      openDialogBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent accordion from toggling
+        dialogOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      });
+    }
+
+    // Close dialog
+    if (closeDialogBtn) {
+      closeDialogBtn.addEventListener('click', function () {
+        dialogOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      });
+    }
+
+    // Close dialog when clicking outside the box
+    if (dialogOverlay) {
+      dialogOverlay.addEventListener('click', function (event) {
+        if (event.target === dialogOverlay) {
+          dialogOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    // Close dialog on Escape key
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && dialogOverlay.classList.contains('active')) {
+        dialogOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Function to check and load the featured image based on variant
+    function loadEdgeStyleImage(variantId) {
+      if (!featuredImageElement) return;
+
+      const selectedVariant = productVariants.find(variant => variant.id === variantId);
+
+      if (selectedVariant && selectedVariant.featured_image) {
+        const featuredImage = selectedVariant.featured_image;
+        const imageAlt = featuredImage.alt || '';
+
+        // Check if the image alt text ends with _SERG (serging image)
+        if (imageAlt.endsWith('_SERG')) {
+          featuredImageElement.src = featuredImage.src;
+          featuredImageElement.alt = imageAlt;
+        } else {
+          // Use default serging image
+          featuredImageElement.src = defaultImage;
+          featuredImageElement.alt = 'Machine Serging Detail';
+        }
+      } else {
+        // Use default image if no featured image
+        featuredImageElement.src = defaultImage;
+        featuredImageElement.alt = 'Machine Serging Detail';
+      }
+    }
+
+    // Listen for variant changes from the prestige shape picker
+    const selectedVariantIdInput = document.getElementById('selected-variant-id');
+
+    if (selectedVariantIdInput) {
+      // Initial load
+      const initialVariantId = parseInt(selectedVariantIdInput.value, 10);
+      if (Number.isFinite(initialVariantId)) {
+        loadEdgeStyleImage(initialVariantId);
+      }
+
+      // Listen for changes
+      selectedVariantIdInput.addEventListener('change', function() {
+        const newVariantId = parseInt(this.value, 10);
+        if (Number.isFinite(newVariantId)) {
+          loadEdgeStyleImage(newVariantId);
+        }
+      });
+    }
+
+    // Also listen for variant changes from URL parameters
+    function getVariantIdFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('variant');
+    }
+
+    const variantIdFromUrl = getVariantIdFromUrl();
+    if (variantIdFromUrl) {
+      const variantId = parseInt(variantIdFromUrl, 10);
+      if (Number.isFinite(variantId)) {
+        loadEdgeStyleImage(variantId);
+      }
+    }
+
+    // Listen for custom variant:change event
+    document.addEventListener('variant:change', function(event) {
+      if (event.detail && event.detail.variant && event.detail.variant.id) {
+        loadEdgeStyleImage(event.detail.variant.id);
+      }
+    });
+  });
+</script>

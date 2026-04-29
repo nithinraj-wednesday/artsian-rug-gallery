@@ -1,0 +1,342 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image_with_text_VQPBki": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_zD9Ett": {
+          "type": "heading",
+          "settings": {
+            "heading": "Custom Rugs",
+            "heading_size": "hd1",
+            "heading_tag": "h1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_7BqMAm": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>A well-designed space begins from the bottom up. Choosing the right rug is a delicate decision that may require a unique solution. Artisan Rug Gallery’s bespoke rugs allow you to complement each space’s distinctive shape, size, or style and incorporate one-of-a-kind details. With support from our experts, artisans, and designers, we’ll create a piece of always-appreciated art for your space.</h4>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_Xz4GX3": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact Us",
+            "button_link": "/pages/contact",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_zD9Ett",
+        "text_7BqMAm",
+        "button_Xz4GX3"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_12.10.30_PM.webp",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": true,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "multicolumn_VbU6Ac": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_agHgmF": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_12.21.46_PM.webp",
+            "image_width": "full",
+            "title": "Inspiration",
+            "heading_size": "h2",
+            "heading_tag": "h1",
+            "text": "<p>The custom rug process begins with design. We help our clients navigate their inspiration and ideas by sharing our expertise and experience in rug-making. With our guidance, you’ll decide the best size, color, design, and material for your space.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_Wa8x9f": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_12.24.56_PM.webp",
+            "image_width": "full",
+            "title": "Collaboration",
+            "heading_size": "h2",
+            "heading_tag": "h3",
+            "text": "<p>We will make your vision a reality. Artisan Rug Gallery regularly collaborates with designers, craftsmen, and individuals with diverse tastes and unique styles. We believe in making the process effortless, and you can expect superior communication, guidance, and support throughout the custom rug-making process.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_Bz3UHL": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_12.46.14_PM.webp",
+            "image_width": "full",
+            "title": "Custom Rug Creation",
+            "heading_size": "h2",
+            "heading_tag": "h3",
+            "text": "<p>Once you’ve imagined the ideal rug for your space, we’ll facilitate the creation of your custom rug. We work closely with artisans in the country of origin to communicate your vision. Artisan Rug Gallery will manage all the details, leaving you to conceive your space’s final look and feel. </p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_agHgmF",
+        "column_Wa8x9f",
+        "column_Bz3UHL"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Custom Rug Process",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "custom-rug-process-header-left"
+      }
+    },
+    "image_with_text_398it7": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_VJQUYt": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "CUSTOMIZATIONS"
+          }
+        },
+        "heading_tnxi8h": {
+          "type": "heading",
+          "settings": {
+            "heading": "Size Scale and Positioning",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_NbiJtP": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>Using the size and design of each space, we can help you design a rug that effortlessly harmonizes the room. The custom rug process allows us to create your ideal rug in any size. Together, we’ll consider how to best position your custom rug to create the desired effect in the space.</h4>",
+            "text_size": "text-inherit"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_VJQUYt",
+        "heading_tnxi8h",
+        "text_NbiJtP"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_12.58.17_PM.webp",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": true,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_paipdB": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_mgYPz8": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shape",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_KQTTCt": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>You are not confined to standard shapes when crafting a custom rug. We can design and produce a rug that’s entirely individual to the needs of the space. Consider how a uniquely shaped rug might help you achieve a memorable impression.</h4>",
+            "text_size": "text-inherit"
+          }
+        }
+      },
+      "block_order": [
+        "heading_mgYPz8",
+        "text_KQTTCt"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_2.25.07_PM.webp",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": true,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_CTprfU": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_DM83jc": {
+          "type": "heading",
+          "settings": {
+            "heading": "Color and Design",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_h9Nx7q": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>When creating a custom rug, you’ll choose from the widest variety of hues and designs, each of which will bring a distinct style to the room. Designs incorporating traditional motifs will feel elegant, traditional, or transitional. In comparison, including geometrics might better echo modern or bohemian styles.</h4>",
+            "text_size": "text-inherit"
+          }
+        }
+      },
+      "block_order": [
+        "heading_DM83jc",
+        "text_h9Nx7q"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_2.33.23_PM.webp",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "right",
+        "enable_parallax": true,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "rich_text_4pan6e": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Lh9qkN": {
+          "type": "heading",
+          "settings": {
+            "heading": "Bring your vision to life with a custom rug from Artisan Rug Gallery. Contact us to get started.",
+            "heading_size": "hd2",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "button_qmDD3h": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact Now",
+            "button_link": "/pages/contact",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Lh9qkN",
+        "button_qmDD3h"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_VQPBki",
+    "multicolumn_VbU6Ac",
+    "image_with_text_398it7",
+    "image_with_text_paipdB",
+    "image_with_text_CTprfU",
+    "rich_text_4pan6e"
+  ]
+}

@@ -1,0 +1,284 @@
+{% comment %}
+  Fabric Specifications block for prestige product pages.
+  Renders variant metafields (fabric.metadata) and product-level brand.
+  Listens to variant:change events and re-renders specs client-side.
+
+  Accepts:
+  - block: {Object} Section block (required — provides block.id, block.settings, block.shopify_attributes)
+  - product: {Object} Product Liquid object (required)
+{% endcomment %}
+
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-fabric-specs-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-fabric-specs__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: {{ block.settings.gap }}px;
+    padding: {{ block.settings.padding }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    background-color: {{ block.settings.background_color }};
+    transition: opacity 0.3s ease;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-fabric-specs__item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_gap }}px;
+    white-space: nowrap;
+    padding: {{ block.settings.item_padding }}px {{ block.settings.item_padding_horizontal }}px;
+    border: {{ block.settings.item_border_width }}px solid {{ block.settings.item_border_color }};
+    border-radius: {{ block.settings.item_border_radius }}px;
+    background-color: {{ block.settings.item_background_color }};
+  }
+
+  .ai-fabric-specs__icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: {{ block.settings.icon_border_width }}px solid {{ block.settings.icon_border_color }};
+  }
+
+  .ai-fabric-specs__content-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ai-fabric-specs__label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: {{ block.settings.label_weight }};
+    color: {{ block.settings.label_color }};
+    text-transform: {{ block.settings.label_transform }};
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .ai-fabric-specs__value-{{ ai_gen_id }} {
+    font-size: {{ block.settings.value_size }}px;
+    color: {{ block.settings.value_color }};
+    text-transform: {{ block.settings.value_transform }};
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .ai-fabric-specs__empty-{{ ai_gen_id }} {
+    padding: 40px;
+    text-align: center;
+    color: #999;
+  }
+
+  .ai-fabric-specs__variant-data-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-fabric-specs__container-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ai-fabric-specs__item-{{ ai_gen_id }} {
+      width: 100%;
+      white-space: normal;
+      padding: 10px 10px;
+    }
+
+    .ai-fabric-specs__value-{{ ai_gen_id }} {
+      white-space: normal;
+      word-break: break-word;
+    }
+  }
+{% endstyle %}
+
+<fabric-specs-{{ ai_gen_id }}
+  class="ai-fabric-specs-{{ ai_gen_id }}"
+  data-product-id="{{ product.id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-fabric-specs__container-{{ ai_gen_id }}" data-specs-container>
+    {% if product.selected_or_first_available_variant.metafields.fabric.metadata or product.metafields.fabric.brand %}
+      {% if product.metafields.fabric.brand %}
+        <div class="ai-fabric-specs__item-{{ ai_gen_id }}">
+          <div class="ai-fabric-specs__icon-{{ ai_gen_id }}"></div>
+          <div class="ai-fabric-specs__content-{{ ai_gen_id }}">
+            <div class="ai-fabric-specs__label-{{ ai_gen_id }}">Brand:</div>
+            <div class="ai-fabric-specs__value-{{ ai_gen_id }}">{{ product.metafields.fabric.brand.value }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% assign metadata = product.selected_or_first_available_variant.metafields.fabric.metadata.value %}
+      {% assign excluded_fields = 'patternRepeatLength,patternRepeatWidth,pileHeight,knotCount,width' | split: ',' %}
+
+      {% for field in metadata %}
+        {% assign key = field[0] %}
+        {% assign value = field[1] %}
+
+        {% unless excluded_fields contains key %}
+          {% if value != null and value != blank %}
+            {% assign display_label = key %}
+            {% if key == 'countryOfOrigin' %}
+              {% assign display_label = 'Origin' %}
+            {% elsif key == 'fiberContent' %}
+              {% assign display_label = 'Material' %}
+            {% endif %}
+
+            <div class="ai-fabric-specs__item-{{ ai_gen_id }}">
+              <div class="ai-fabric-specs__icon-{{ ai_gen_id }}"></div>
+              <div class="ai-fabric-specs__content-{{ ai_gen_id }}">
+                <div class="ai-fabric-specs__label-{{ ai_gen_id }}">{{ display_label | replace: '_', ' ' | capitalize }}:</div>
+                <div class="ai-fabric-specs__value-{{ ai_gen_id }}">{{ value }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endunless %}
+      {% endfor %}
+    {% else %}
+      <div class="ai-fabric-specs__empty-{{ ai_gen_id }}">
+        No fabric specifications available for this variant
+      </div>
+    {% endif %}
+  </div>
+
+  <script type="application/json" class="ai-fabric-specs__variant-data-{{ ai_gen_id }}" data-variant-metadata>
+    {
+      {% for variant in product.variants %}
+        "{{ variant.id }}": {% if variant.metafields.fabric.metadata %}{{ variant.metafields.fabric.metadata.value | json }}{% else %}null{% endif %}{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    }
+  </script>
+
+  <script type="application/json" class="ai-fabric-specs__product-brand-{{ ai_gen_id }}" data-product-brand>
+    {{ product.metafields.fabric.brand.value | json }}
+  </script>
+</fabric-specs-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FabricSpecs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.container = this.querySelector('[data-specs-container]');
+        this.variantDataElement = this.querySelector('[data-variant-metadata]');
+        this.brandDataElement = this.querySelector('[data-product-brand]');
+        this.variantData = {};
+        this.productBrand = null;
+        this.excludedFields = ['patternRepeatLength', 'patternRepeatWidth', 'pileHeight', 'knotCount', 'width'];
+
+        if (this.variantDataElement) {
+          try {
+            this.variantData = JSON.parse(this.variantDataElement.textContent);
+          } catch (e) {
+            console.error('Error parsing variant metadata:', e);
+          }
+        }
+
+        if (this.brandDataElement) {
+          try {
+            this.productBrand = JSON.parse(this.brandDataElement.textContent);
+          } catch (e) {
+            console.error('Error parsing product brand:', e);
+          }
+        }
+      }
+
+      connectedCallback() {
+        this.setupVariantChangeListener();
+      }
+
+      setupVariantChangeListener() {
+        const self = this;
+        document.addEventListener('variant:change', function(event) {
+          if (event.detail && event.detail.variant && event.detail.variant.id) {
+            self.updateMetadata(event.detail.variant.id);
+          }
+        });
+      }
+
+      updateMetadata(variantId) {
+        const metadata = this.variantData[variantId];
+
+        if (!metadata && !this.productBrand) {
+          this.renderEmpty();
+          return;
+        }
+
+        this.container.style.opacity = '0.5';
+
+        const self = this;
+        setTimeout(function() {
+          self.renderMetadata(metadata);
+          self.container.style.opacity = '1';
+        }, 150);
+      }
+
+      renderMetadata(metadata) {
+        let html = '';
+
+        if (this.productBrand) {
+          html += this.createSpecItem('Brand', this.productBrand);
+        }
+
+        if (metadata) {
+          for (const key in metadata) {
+            if (metadata.hasOwnProperty(key) &&
+                metadata[key] !== null &&
+                metadata[key] !== '' &&
+                !this.excludedFields.includes(key)) {
+              const label = this.mapLabel(key);
+              const value = metadata[key];
+              html += this.createSpecItem(label, value);
+            }
+          }
+        }
+
+        if (html === '') {
+          this.renderEmpty();
+        } else {
+          this.container.innerHTML = html;
+        }
+      }
+
+      mapLabel(key) {
+        const labelMap = {
+          'countryOfOrigin': 'Origin',
+          'fiberContent': 'Material'
+        };
+        return labelMap[key] || this.formatLabel(key);
+      }
+
+      formatLabel(key) {
+        return key.replace(/([A-Z])/g, ' $1').replace(/^./, function(str) {
+          return str.toUpperCase();
+        }).trim();
+      }
+
+      createSpecItem(label, value) {
+        return '<div class="ai-fabric-specs__item-{{ ai_gen_id }}">' +
+          '<div class="ai-fabric-specs__icon-{{ ai_gen_id }}"></div>' +
+          '<div class="ai-fabric-specs__content-{{ ai_gen_id }}">' +
+          '<div class="ai-fabric-specs__label-{{ ai_gen_id }}">' + label + ':</div>' +
+          '<div class="ai-fabric-specs__value-{{ ai_gen_id }}">' + value + '</div>' +
+          '</div>' +
+          '</div>';
+      }
+
+      renderEmpty() {
+        this.container.innerHTML = '<div class="ai-fabric-specs__empty-{{ ai_gen_id }}">No fabric specifications available for this variant</div>';
+      }
+    }
+
+    customElements.define('fabric-specs-{{ ai_gen_id }}', FabricSpecs{{ ai_gen_id }});
+  })();
+</script>

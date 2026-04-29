@@ -1,0 +1,289 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_yybANB": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_hbP98M": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rug Craftsmanship",
+            "heading_size": "hd3",
+            "heading_tag": "h3",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_Te3NJP": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Rug-making originated over 5,000 years ago, and in that time, sophisticated and diverse artistry emerged. While the origins of rug making are unknown, archaeological evidence suggests that nomadic tribes in Egyptian and Mesopotamian areas used various materials to create functional and decorative floor coverings.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading_hbP98M",
+        "text_Te3NJP"
+      ],
+      "custom_css": [
+        ".rich-text__heading {font-size: 45.5px;}",
+        ".rich-text__text,.rich-text__text :where(p, h1, h2, h3, h4, h5, h6) {font-size: 16px;}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_with_text_CjeaeD": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_RUXWLV": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rug Making Traditions",
+            "heading_size": "hd2",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_mHYDC8": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Two early rug-making traditions have been preserved and embodied in the modern rug craft. In one tradition, Tibetan rugs were made of sheep’s wool using a distinct knotting method that later traveled into India and Nepal. In contrast, weavers in India used an upright loom to create intricate patterns and designs.Artisan Rug Gallery helps preserve these long-established techniques by offering diverse collections of traditional and modern designs that celebrate the craftsmanship of old-world rug making</h2>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading_RUXWLV",
+        "text_mHYDC8"
+      ],
+      "custom_css": [
+        ".rich-text__heading {font-size: 52px;}",
+        ".rich-text__text,.rich-text__text :where(p, h1, h2, h3, h4, h5, h6) {font-size: 21.632px;}"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_11.39.22_AM.webp",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "center",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "multicolumn_jP79MH": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_MmeDVF": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_11.11.41_AM.png",
+            "image_width": "full",
+            "title": "Yarn Making",
+            "heading_size": "h4",
+            "heading_tag": "h3",
+            "text": "<p>While each rug-making technique is unique, most methods require that yarn is made from wool or other natural materials like silk, cotton, or jute. Depending on the method, yarn is spun into the desired thickness to weave handmade rugs.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_AYBrzb": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_11.15.01_AM.webp",
+            "image_width": "full",
+            "title": "Washing & Dying Yarn",
+            "heading_size": "h4",
+            "heading_tag": "h3",
+            "text": "<p>Once the yarn has been spun, it's washed and prepared for dying. The yarn is submerged in various dyes for different periods of time, allowing dye masters to create vibrant or more muted colors.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_Y34zyE": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_11.18.48_AM.webp",
+            "image_width": "full",
+            "title": "Weaving Rugs from Yarn",
+            "heading_size": "h4",
+            "heading_tag": "h3",
+            "text": "<p>Using one of many techniques, rug weavers can create attractive, long-lasting, and one-of-a-kind rugs. Each rug weaving style creates a distinctive feel and finish that reflects a particular design style and tradition. In the end, the weaving and finishing process completes each artistic endeavor.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_MmeDVF",
+        "column_AYBrzb",
+        "column_Y34zyE"
+      ],
+      "custom_css": [
+        ".section__heading {font-size: 39px;}",
+        ".multicolumn-card__title {font-size: 30px;}",
+        ".multicolumn-card__text,.multicolumn-card__text :where(p, h1, h2, h3, h4, h5, h6) {font-size: 16px;}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Rug Creation",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": true,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "multicolumn_qatLNi": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_xtJd9d": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_11.46.13_AM.webp",
+            "image_width": "full",
+            "title": "Hand Knotted",
+            "heading_size": "h3",
+            "heading_tag": "h3",
+            "text": "<p>Weaving a hand-knotted rug requires intense expertise, patience, and artistry. A single 8×10 hand-knotted rug requires over 3,000 hours to make. Thousands of warp and weft threads are knotted to create the rug pile with a highly intricate design. The final appearance and texture of a hand-knotted rug will depend on the knots and materials used in its creation.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_CAXh3y": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_11.52.19_AM.webp",
+            "image_width": "full",
+            "title": "Flatweave",
+            "heading_size": "h3",
+            "heading_tag": "h3",
+            "text": "<p>Flatweave rugs are created by weaving threads on a loom in a distinctive, repeated pattern. As the name suggests, flatweave rugs do not have a high pile, making them lighter, more flexible, and highly durable. Flatweaving is labor intensive and demands an acute eye for detail.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_eAJFVT": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/43d2d9db-3252-43d9-af09-dc88e1f313eb.jpg",
+            "image_width": "full",
+            "title": "Hand-Tufted Rugs",
+            "heading_size": "h3",
+            "heading_tag": "h3",
+            "text": "<p>Hand-tufted rugs are weaved using a frame and tufting tool. An artisan will place each strand of wool or yarn onto the frame and punch the strands using the tufting tool. This weaving technique allows for a variety of patterns.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_xtJd9d",
+        "column_CAXh3y",
+        "column_eAJFVT"
+      ],
+      "custom_css": [
+        "h2,.title,.h2,.h1,.h0,.inline-richtext,.title-wrapper-with-link * {color: #706b5f !important;}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "color_scheme": "scheme-8",
+        "heading": "Rug Weaving Techniques Across the World",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "<p>Artisan Rug Gallery carries a diverse assortment of rug types, each made using a traditional rug weaving technique.</p>",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "medium",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_yybANB",
+    "image_with_text_CjeaeD",
+    "multicolumn_jP79MH",
+    "multicolumn_qatLNi"
+  ]
+}

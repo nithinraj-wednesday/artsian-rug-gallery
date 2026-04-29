@@ -1,0 +1,367 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_jwM3gp": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_9k6k7k": {
+          "type": "heading",
+          "settings": {
+            "heading": "About Artisan Rug Gallery",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_rN9mAT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Artisan Rug Gallery specializes in curating an exquisite collection of expertly woven and eye-catching rugs for modern living. We <br/>hand select every rug and strive to bring beauty and authenticity to the homes of our clients.</p>",
+            "text_size": "text-sm"
+          }
+        }
+      },
+      "block_order": [
+        "heading_9k6k7k",
+        "text_rN9mAT"
+      ],
+      "custom_css": [
+        ".rich-text__heading {font-size: 45.5px !important;}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_with_text_L4fYre": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_dgmYwQ": {
+          "type": "heading",
+          "settings": {
+            "heading": "Meet the Founder",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_eQURcx": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The origins of Artisan Rug Gallery go back more than 30 years, with owner Jeff Deutsch making his way to Ecuador in 1990 where he traded his own personal possessions for a small collection of handicrafts. The trip sparked many more like it - from the Andes, to Central America and the Middle East. Soon a successful business was born and Jeff opened a permanent store, selling his finds from around the world.</p><p>Over the years, the folk art, weaving, jewelry and clothing disappeared and the focus became hand woven rugs. Jeff and his wife Tiffany continue to travel and learn about the business and art of making fine artisanal carpets. Today, Artisan Rug Gallery in Denver, Crested Butte, and now Charlotte, North Carolina, is established as one of the best rug galleries in the Rockies and Beyond.</p>",
+            "text_size": "text-sm"
+          }
+        }
+      },
+      "block_order": [
+        "heading_dgmYwQ",
+        "text_eQURcx"
+      ],
+      "custom_css": [],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-04-08_at_2.48.23_PM.png",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": true,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_nTXLfn": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_gJeta4": {
+          "type": "heading",
+          "settings": {
+            "heading": "Across the Globe",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_DQL4Ly": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>Artisan Rug Gallery was founded in 1990 out of an <br/>appreciation for the work of talented craftspeople worldwide. <br/>Our travels have connected us with the industry’s most <br/>knowledgeable, passionate rug makers, and we’re fortunate to<br/> share that expertise with our customers. Every international<br/> journey inspires and introduces new techniques and rug-<br/>making traditions.</h4>",
+            "text_size": "text-inherit"
+          }
+        }
+      },
+      "block_order": [
+        "heading_gJeta4",
+        "text_DQL4Ly"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-10_at_10.03.18_AM.webp",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "center",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "rich_text_ahGTBP": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_W4agTE": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Mission",
+            "heading_size": "hd2",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_JKjFAM": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>At Artisan Rug Gallery, we are more than just a purveyor of rugs. We are connoisseurs of comfort, champions of craftsmanship, and devotees of design. Our mission is to not only provide superior rugs and carpets but also to foster a deep appreciation for the artistry and beauty that rugs bring to our lives.</h4>",
+            "text_size": "text-inherit"
+          }
+        }
+      },
+      "block_order": [
+        "heading_W4agTE",
+        "text_JKjFAM"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_width_text_columns_xffwQw": {
+      "type": "image-width-text-columns",
+      "blocks": {
+        "column_J4xMtF": {
+          "type": "column",
+          "settings": {
+            "image_width": "medium",
+            "title": "<em><strong>Artisan Apprectiation</strong></em>",
+            "heading_size": "h6",
+            "heading_tag": "h3",
+            "text": "<p>The dye masters, weavers, and finishers who craft our rugs use techniques that date back thousands of years. We’re proud to help ensure the evolution and continuation of these traditions by offering collections for modern design sensibilities.</p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_hMtEJT": {
+          "type": "column",
+          "settings": {
+            "image_width": "medium",
+            "title": "<em><strong>Creative Individuality</strong></em>",
+            "heading_size": "h6",
+            "heading_tag": "h3",
+            "text": "<p>The brilliance and diversity of Artisan Rug Gallery’s offerings are built on the preservation of traditional techniques and worldwide connections with skilled craftsmen. The look and feel of each rug requires imagination, artistry, and a commitment to a mastery of skills resulting in a truly unique piece of art.</p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_khhJ8N": {
+          "type": "column",
+          "settings": {
+            "image_width": "medium",
+            "title": "<em><strong>Excellence & Expertise</strong></em>",
+            "heading_size": "h6",
+            "heading_tag": "h3",
+            "text": "<p>We curate collections of handmade rugs fashioned from the highest quality materials and designed to complement luxury lifestyles. Our team is dedicated to delivering unparalleled service and support. We seamlessly collaborate with design professionals to create a lasting impression.</p>",
+            "text_size": "text-sm"
+          }
+        }
+      },
+      "block_order": [
+        "column_J4xMtF",
+        "column_hMtEJT",
+        "column_khhJ8N"
+      ],
+      "name": "t:sections.image-with-text-columns.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "layout_gap": "extra-large",
+        "content_alignment": "center",
+        "image": "shopify://shop_images/Screenshot_2024-01-09_at_3.22.48_PM.webp",
+        "image_position": "image_first",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 1,
+        "column_gap": "extra-small",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_width_text_columns_RYTgFw": {
+      "type": "image-width-text-columns",
+      "blocks": {
+        "column_VXBmQ3": {
+          "type": "column",
+          "settings": {
+            "image_width": "medium",
+            "title": "Denver Colorado",
+            "heading_size": "h3",
+            "heading_tag": "h3",
+            "text": "<p>2800 Walnut St Suite 600<br/>Denver, CO 80205<br/><a href=\"tel:3038250064\">303.825.0064</a></p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_zziB3L": {
+          "type": "column",
+          "settings": {
+            "image_width": "medium",
+            "title": "Crested Butte Colorado",
+            "heading_size": "h3",
+            "heading_tag": "h3",
+            "text": "<p>311 Elk Ave<br/>Crested Butte, CO 81224<br/><a href=\"tel:9703490116\">970.349.0116</a></p>",
+            "text_size": "text-base"
+          }
+        },
+        "column_V3mGgn": {
+          "type": "column",
+          "settings": {
+            "image_width": "medium",
+            "title": "Charlotte North Carolina",
+            "heading_size": "h3",
+            "heading_tag": "h3",
+            "text": "<p>2204 Hawkins St.<br/>Charlotte, NC 28203<br/><a href=\"tel:9809388786\">980.938.8786</a></p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "column_VXBmQ3",
+        "column_zziB3L",
+        "column_V3mGgn"
+      ],
+      "name": "t:sections.image-with-text-columns.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "layout_gap": "small",
+        "content_alignment": "center",
+        "image": "shopify://shop_images/Screenshot_2024-04-08_at_2.51.36_PM.webp",
+        "image_position": "text_first",
+        "heading": "Our Locations",
+        "heading_size": "hd1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 1,
+        "column_gap": "small",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "full",
+        "custom_class": ""
+      }
+    },
+    "contact_form_YdYRp9": {
+      "type": "contact-form",
+      "blocks": {
+        "custom_field_g8j6VG": {
+          "type": "custom_field",
+          "settings": {
+            "field_type": "phone",
+            "heading": "Phone number",
+            "placeholder": "",
+            "required": false,
+            "full_width": true,
+            "select_options": "Option 1, Option 2, Option 3",
+            "checkbox_checked_value": "Yes",
+            "checkbox_uncheck_value": "No",
+            "radio_options": "Option 1, Option 2, Option 3"
+          }
+        }
+      },
+      "block_order": [
+        "custom_field_g8j6VG"
+      ],
+      "name": "t:sections.contact-form.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "scheme-1",
+        "heading": "Contact Us",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_jwM3gp",
+    "image_with_text_L4fYre",
+    "image_with_text_nTXLfn",
+    "rich_text_ahGTBP",
+    "image_width_text_columns_xffwQw",
+    "image_width_text_columns_RYTgFw",
+    "contact_form_YdYRp9"
+  ]
+}

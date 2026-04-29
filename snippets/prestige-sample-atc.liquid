@@ -1,0 +1,477 @@
+{% comment %}
+  Prestige Sample Add to Cart
+  Renders a button that opens a drawer to select and order a fabric sample.
+  Sample product is pulled from product.metafields.fabric.sample_product_id.
+
+  Accepts:
+  - product: {Object} parent prestige product
+  - block: {Object} block object (for settings: button_label, sample_note)
+  - product_form_id: {String} unused — drawer has its own form
+{% endcomment %}
+
+{%- liquid
+  assign sample_product = product.metafields.fabric.sample_product_id.value
+  assign button_label = block.settings.button_label | default: 'Order a Sample'
+  assign sample_note = block.settings.sample_note | default: ''
+  assign sid = section.id
+-%}
+
+{%- if sample_product != blank -%}
+  {%- assign featured_media = sample_product.selected_or_first_available_variant.featured_media -%}
+  {%- assign sample_form_id = 'PrestigeSampleForm-' | append: sid -%}
+  {%- assign base_url = product.url | split: '?' | first | prepend: request.origin -%}
+
+  <div class="prestige-sample-atc-wrapper" style="margin-top: 8px;" {{ block.shopify_attributes }}>
+    <button
+      type="button"
+      class="prestige-sample-open-btn btn btn--secondary w-full"
+      id="prestige-sample-open-{{ sid }}"
+    >
+      {{ button_label }}
+    </button>
+
+    {%- if sample_note != blank -%}
+      <p style="font-size: 11px; color: #888; text-align: center; margin: 6px 0 0 0;">{{ sample_note }}</p>
+    {%- endif -%}
+
+    <dialog class="prestige-sample-overlay" id="prestige-sample-overlay-{{ sid }}">
+      <div class="prestige-sample-drawer" id="prestige-sample-drawer-{{ sid }}">
+        <div class="prestige-sample-drawer__close-row">
+          <button class="prestige-sample-drawer__close-btn" type="button" aria-label="Close">×</button>
+        </div>
+
+        <div class="prestige-sample-drawer__content">
+          <div class="prestige-sample-drawer__img-wrap">
+            <img
+              id="prestige-sample-img-{{ sid }}"
+              src="{{ featured_media.preview_image | image_url: width: 416 }}"
+              alt="{{ featured_media.alt | escape }}"
+              loading="lazy"
+              width="416"
+              height="auto"
+            >
+          </div>
+
+          <h2 class="prestige-sample-drawer__title">{{ sample_product.title | downcase }}</h2>
+
+          <span class="prestige-sample-drawer__price">
+            ${{- sample_product.selected_or_first_available_variant.price | money_without_currency | plus: 0.5 | floor -}}.00
+          </span>
+
+          <p class="prestige-sample-drawer__property">
+            Color: <span id="prestige-sample-color-{{ sid }}">{{ sample_product.selected_or_first_available_variant.title }}</span>
+          </p>
+
+          <div class="prestige-sample-drawer__swatches" id="prestige-sample-swatches-{{ sid }}">
+            {%- for variant in sample_product.variants -%}
+              <div
+                class="prestige-sample-swatch{% if variant.id == sample_product.selected_or_first_available_variant.id %} selected{% endif %}{% unless variant.available %} prestige-sample-swatch--unavailable{% endunless %}"
+                data-variant-id="{{ variant.id }}"
+                data-variant-name="{{ variant.title }}"
+                data-variant-image="{% if variant.featured_media.preview_image %}{{ variant.featured_media.preview_image | image_url: width: 416 }}{% else %}{{ sample_product.featured_image | image_url: width: 416 }}{% endif %}"
+                data-variant-available="{{ variant.available }}"
+                title="{{ variant.title }}"
+              >
+                {%- if variant.featured_media.preview_image -%}
+                  <img
+                    src="{{ variant.featured_media.preview_image | image_url: width: 80 }}"
+                    alt="{{ variant.title | escape }}"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <span class="prestige-sample-swatch__label">{{ variant.title | upcase }}</span>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <p class="prestige-sample-drawer__property">
+            Size: <span>Sample 9" X 9"</span>
+          </p>
+
+          {%- form 'product', sample_product,
+            id: sample_form_id,
+            class: 'prestige-sample-form',
+            novalidate: 'novalidate'
+          -%}
+            <input type="hidden" name="id" class="prestige-sample-variant-id" value="{{ sample_product.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <input type="hidden" name="properties[Edge Style]" value="Machine Serging">
+            <input type="hidden" name="properties[Size]" value='Sample 9" X 9"'>
+            <input type="hidden" name="properties[_parenturl]" value="{{ base_url }}">
+
+            <button
+              type="submit"
+              name="add"
+              class="prestige-sample-atc-btn btn btn--primary w-full"
+              {% if sample_product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+            >
+              <span class="prestige-sample-atc-btn__text">
+                {%- if sample_product.selected_or_first_available_variant.available == false -%}
+                  Sold out
+                {%- else -%}
+                  Add to cart
+                {%- endif -%}
+              </span>
+              <div class="prestige-sample-atc-btn__spinner hidden">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </div>
+            </button>
+          {%- endform -%}
+        </div>
+      </div>
+    </dialog>
+  </div>
+
+{%- elsif product != blank -%}
+  {%- comment -%} Fallback: no sample product metafield — plain add as sample {%- endcomment -%}
+  {%- assign variant = product.selected_or_first_available_variant -%}
+  {%- assign sample_form_id = 'PrestigeSampleFormFallback-' | append: sid -%}
+
+  <div class="prestige-sample-atc-wrapper" style="margin-top: 8px;" {{ block.shopify_attributes }}>
+    {%- form 'product', product, id: sample_form_id, class: 'prestige-sample-form', novalidate: 'novalidate' -%}
+      <input type="hidden" name="id" value="{{ variant.id }}" class="prestige-sample-variant-id">
+      <input type="hidden" name="quantity" value="1">
+      <input type="hidden" name="properties[_sample]" value="true">
+      <input type="hidden" name="properties[_parenturl]" value="{{ request.origin }}{{ product.url }}">
+      <input type="hidden" name="properties[Color]" value="{{ variant.title }}">
+
+      <button type="submit" name="add" class="prestige-sample-open-btn btn btn--secondary w-full" {% if variant.available == false %}disabled{% endif %}>
+        {{ button_label }}
+      </button>
+    {%- endform -%}
+
+    {%- if sample_note != blank -%}
+      <p style="font-size: 11px; color: #888; text-align: center; margin: 6px 0 0 0;">{{ sample_note }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+<style>
+  .prestige-sample-overlay {
+    display: flex;
+    justify-content: flex-end;
+    visibility: hidden;
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.6);
+    transition: opacity 0.3s ease-in-out;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+  }
+
+  .prestige-sample-overlay.active {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1000;
+  }
+
+  .prestige-sample-drawer {
+    background: #fff;
+    width: 35%;
+    height: 100vh;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+
+  .prestige-sample-drawer.active {
+    transform: translateX(0);
+  }
+
+  .prestige-sample-drawer__close-row {
+    width: 100%;
+    margin-top: 40px;
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .prestige-sample-drawer__close-btn {
+    height: 40px;
+    width: 40px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 24px;
+    background-color: #eeeded;
+    cursor: pointer;
+    color: black;
+  }
+
+  .prestige-sample-drawer__content {
+    padding: 10px 20px;
+  }
+
+  .prestige-sample-drawer__img-wrap {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .prestige-sample-drawer__img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .prestige-sample-drawer__title {
+    font-size: 24px;
+    text-transform: capitalize;
+    margin: 15px 0;
+  }
+
+  .prestige-sample-drawer__price {
+    font-size: 20px;
+  }
+
+  .prestige-sample-drawer__property {
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
+  .prestige-sample-drawer__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .prestige-sample-swatch {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+
+  .prestige-sample-swatch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .prestige-sample-swatch__label {
+    font-size: 9px;
+    font-weight: 600;
+    text-align: center;
+    padding: 2px 4px;
+    line-height: 1.2;
+    word-break: break-word;
+    color: #333;
+  }
+
+  .prestige-sample-swatch.selected {
+    border: 2px solid #000;
+  }
+
+  .prestige-sample-swatch--unavailable {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .prestige-sample-atc-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .prestige-sample-atc-btn__spinner {
+    display: inline-block;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .prestige-sample-atc-btn__spinner svg {
+    animation: prestige-rotator 1.4s linear infinite;
+  }
+
+  @keyframes prestige-rotator {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+  }
+
+  .prestige-sample-atc-btn__spinner .path {
+    stroke: white;
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: prestige-dash 1.4s ease-in-out infinite;
+  }
+
+  @keyframes prestige-dash {
+    0% { stroke-dashoffset: 187; }
+    50% { stroke-dashoffset: 46.75; transform: rotate(135deg); }
+    100% { stroke-dashoffset: 187; transform: rotate(450deg); }
+  }
+
+  .prestige-sample-atc-btn__spinner.hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .prestige-sample-drawer {
+      width: 90%;
+    }
+    .prestige-sample-drawer__img-wrap {
+      height: auto;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sid = '{{ sid }}';
+    const openBtn = document.getElementById('prestige-sample-open-' + sid);
+    const overlay = document.getElementById('prestige-sample-overlay-' + sid);
+    const drawer = document.getElementById('prestige-sample-drawer-' + sid);
+
+    if (!openBtn || !overlay || !drawer) return;
+
+    const closeBtn = drawer.querySelector('.prestige-sample-drawer__close-btn');
+    const swatches = drawer.querySelectorAll('.prestige-sample-swatch');
+    const featuredImg = document.getElementById('prestige-sample-img-' + sid);
+    const colorLabel = document.getElementById('prestige-sample-color-' + sid);
+    const variantIdInput = drawer.querySelector('.prestige-sample-variant-id');
+    const atcBtn = drawer.querySelector('.prestige-sample-atc-btn');
+    const sampleForm = drawer.querySelector('.prestige-sample-form');
+
+    function openDrawer() {
+      overlay.showModal();
+      overlay.classList.add('active');
+      drawer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      overlay.close();
+      overlay.classList.remove('active');
+      drawer.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function setLoading(loading) {
+      if (!atcBtn) return;
+      const spinner = atcBtn.querySelector('.prestige-sample-atc-btn__spinner');
+      const textEl = atcBtn.querySelector('.prestige-sample-atc-btn__text');
+      atcBtn.disabled = loading;
+      if (spinner) spinner.classList.toggle('hidden', !loading);
+      if (textEl) textEl.style.display = loading ? 'none' : '';
+    }
+
+    function openCartDrawer() {
+      const cartDrawer = document.querySelector('cart-drawer-component') || document.getElementById('CartDrawer');
+      if (!cartDrawer) return;
+      setTimeout(function () {
+        if (typeof cartDrawer.open === 'function') {
+          cartDrawer.open();
+        } else {
+          cartDrawer.removeAttribute('hidden');
+          cartDrawer.setAttribute('open', '');
+        }
+      }, 100);
+    }
+
+    openBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeDrawer();
+    });
+
+    swatches.forEach(function (swatch) {
+      swatch.addEventListener('click', function () {
+        if (swatch.getAttribute('data-variant-available') !== 'true') return;
+
+        swatches.forEach(function (s) { s.classList.remove('selected'); });
+        swatch.classList.add('selected');
+
+        const variantImgUrl = swatch.getAttribute('data-variant-image');
+        if (featuredImg && variantImgUrl) featuredImg.src = variantImgUrl;
+        if (colorLabel) colorLabel.textContent = swatch.getAttribute('data-variant-name');
+        if (variantIdInput) variantIdInput.value = swatch.getAttribute('data-variant-id');
+
+        if (atcBtn) {
+          atcBtn.disabled = false;
+          const textEl = atcBtn.querySelector('.prestige-sample-atc-btn__text');
+          if (textEl) textEl.textContent = 'Add to cart';
+        }
+      });
+    });
+
+    // Intercept form submit — use Fetch so page does not redirect
+    if (sampleForm) {
+      sampleForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const variantId = variantIdInput && variantIdInput.value;
+        if (!variantId) return;
+
+        setLoading(true);
+
+        const properties = {};
+        sampleForm.querySelectorAll('input[name^="properties["]').forEach(function (input) {
+          const key = input.name.replace('properties[', '').replace(']', '');
+          properties[key] = input.value;
+        });
+
+        try {
+          const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              items: [{ id: parseInt(variantId, 10), quantity: 1, properties: properties }],
+              sections: 'cart-drawer',
+            }),
+          });
+
+          if (!response.ok) {
+            const err = await response.json().catch(function () { return {}; });
+            throw new Error(err.description || 'Failed to add sample');
+          }
+
+          const cartData = await response.json();
+          document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true, detail: { cartData: cartData } }));
+          document.dispatchEvent(new CustomEvent('cart:update', { bubbles: true, detail: { cartData: cartData } }));
+
+          setLoading(false);
+          closeDrawer();
+          openCartDrawer();
+
+        } catch (err) {
+          setLoading(false);
+          const textEl = atcBtn && atcBtn.querySelector('.prestige-sample-atc-btn__text');
+          if (textEl) {
+            textEl.style.display = '';
+            textEl.textContent = 'Error — try again';
+            setTimeout(function () { textEl.textContent = 'Add to cart'; }, 3000);
+          }
+        }
+      });
+    }
+  });
+</script>

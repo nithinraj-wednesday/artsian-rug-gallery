@@ -1,0 +1,227 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "How It Works",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Creating your perfect custom rug is simple. Follow these steps and we'll take care of the rest.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "step_1": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "1. Choose Your Rug",
+            "heading_size": "h3",
+            "text": "<p>Browse our collection and select the design, colour, and material that suits your space.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "step_2": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "2. Order a Sample",
+            "heading_size": "h3",
+            "text": "<p>Not sure about the colour or texture? Order a free sample to see and feel it in your home first.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "step_3": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "3. Configure Your Size",
+            "heading_size": "h3",
+            "text": "<p>Use the size picker to enter your exact dimensions. Choose from rectangular, round, or runner shapes.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "step_4": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "4. Add Your Extras",
+            "heading_size": "h3",
+            "text": "<p>Optionally add a rug pad, rug protection, and choose your preferred edge style to finish the look.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "step_5": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "5. We Make It",
+            "heading_size": "h3",
+            "text": "<p>Your rug is cut and finished to your exact specifications by our skilled production team.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "step_6": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "6. Delivered to You",
+            "heading_size": "h3",
+            "text": "<p>Your custom rug is carefully packaged and delivered to your door approximately 4–5 weeks after ordering.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "step_5",
+        "step_6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "heading": "",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "center",
+        "columns_desktop": 3,
+        "column_gap": "large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 60,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "configurator_promo": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "sample_promo": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ready to get started?",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop All Rugs",
+            "button_link": "/collections/all",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "button"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "intro",
+    "steps",
+    "configurator_promo",
+    "sample_promo",
+    "cta"
+  ]
+}

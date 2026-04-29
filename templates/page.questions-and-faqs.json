@@ -1,0 +1,297 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image_with_text_overlay_ePhMXt": {
+      "type": "image-with-text-overlay",
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/Screenshot_2024-02-03_at_12.09.26_PM_4970668b-e58a-4c2b-adad-223c23dec57d.png",
+        "desktop_height": "extra-small",
+        "overlay_opacity": 0,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "",
+        "content_position": "middle-left",
+        "content_alignment": "left",
+        "mobile_height": "auto",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    },
+    "collapsible_tabs_aFCUHf": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "collapsible_item_NzJekb": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How do I place an order?",
+            "content": "<p>Contact us directly for in stock and custom rug purchases. Register for an online account to purchase through the website. Contact us directly if you need assistance with your online account.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_GcJH9d": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How do I place an order for a custom rug?",
+            "content": "<p>You can place a custom rug order by visiting our showroom. If you are unable to make it to our showroom, contact us directly!</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_HEVdRz": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "What Cleaning Products are safe to use on my rug?",
+            "content": "<p>Cleaning products are not safe to use on hand-made rugs.  Most cleaning products are for synthetic carpets and will lead to bleaching and  damage to the natural fibers.  </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_fpykNa": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Do I need professional cleaning services?",
+            "content": "<p>There may be a stubborn stain that won’t come out, or perhaps your rug has been used for years and it just needs a good cleaning. This would be a great time to give us a call and schedule a professional cleaning!</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_WiXxYT": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Will my rug fade over time?",
+            "content": "<p>If your rug is in direct sunlight, you can anticipate some fading.  If you do have direct sunlight,  it’s important to routinely rotate your rug to give it a lasting and even appearance. Alternatively, you may consider sun protection coating for your homes windows. </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_6gcRrp": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "What is the best way to vacuum my rug?",
+            "content": "<p>Use your vacuum on the lowest setting, preferable the hard-wood floor setting to avoid using the bristles of your vacuum.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_BLWrrV": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Why is my rug shedding?",
+            "content": "<p>Shedding is oftentimes normal, especially if you just purchased your rug. The shedding of a new rug should stop after a light vacuuming or normal wear. </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_item_NzJekb",
+        "collapsible_item_GcJH9d",
+        "collapsible_item_HEVdRz",
+        "collapsible_item_fpykNa",
+        "collapsible_item_WiXxYT",
+        "collapsible_item_6gcRrp",
+        "collapsible_item_BLWrrV"
+      ],
+      "name": "t:sections.collapsible-tabs.presets.name",
+      "settings": {
+        "container": "narrow",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "General Questions",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h4",
+        "item_heading_tag": "h2",
+        "item_icon_size": "extra-large",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "collapsible_tabs_gcxReT": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "collapsible_item_CAYEUh": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Where do you ship?",
+            "content": "<p>We ship worldwide</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_yQqTiP": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "What are your shipping timelines?",
+            "content": "<p>Shipping times vary depending on the availability of a particular rug.  But generally, if it's an in stock piece, you will receive your rug within a week to 10 days. </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_NetLRY": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Do you accept returns or exchanges?",
+            "content": "<p>We offer in-home showings and a 48 hour approval process to ensure clients are happy with their purchase.  This largely avoids the need to refund customers, however we offer exchanges of rugs in good condition.  The exchange may require a cleaning fee if the rug has been on the floor for a while. If there is a defect or issue with a purchased rug that we cannot fix, we happily issue a refund.  </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_MfpKtr": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Do you accept returns of custom rugs?",
+            "content": "<p>No, we do not accept return of custom rugs.  We feel confident our custom process provides clients with exactly what they envisioned.  Of course, if there is a defect or issue with the rug that cannot be addressed, we will happily provide a refund.  </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_item_CAYEUh",
+        "collapsible_item_yQqTiP",
+        "collapsible_item_NetLRY",
+        "collapsible_item_MfpKtr"
+      ],
+      "name": "t:sections.collapsible-tabs.presets.name",
+      "settings": {
+        "container": "narrow",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "Shipping & Returns",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h4",
+        "item_heading_tag": "h2",
+        "item_icon_size": "extra-large",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "rich_text_zR9KGa": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_tJ3Dec": {
+          "type": "heading",
+          "settings": {
+            "heading": "Didn't find your answer?",
+            "heading_size": "hd2",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_dCMiw3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Don't hesitate to contact us</p>",
+            "text_size": "text-base"
+          }
+        },
+        "button_GTYbCt": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact us",
+            "button_link": "",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_tJ3Dec",
+        "text_dCMiw3",
+        "button_GTYbCt"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_ePhMXt",
+    "collapsible_tabs_aFCUHf",
+    "collapsible_tabs_gcxReT",
+    "rich_text_zR9KGa"
+  ]
+}

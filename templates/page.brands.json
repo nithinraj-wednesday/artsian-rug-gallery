@@ -1,0 +1,441 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_8AbPwz": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Ljdzhk": {
+          "type": "heading",
+          "settings": {
+            "heading": "BRANDS",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_ra6nCY": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Artisan Rug Gallery curates collections of sought-after brands from around the world. Each collection of luxury rugs offers a variety of premium, hand-woven rugs in various sizes, colors, and textures. From classic designs and textures to moody monochromatics, we offer collections featuring prominent designers and talented artisans</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Ljdzhk",
+        "text_ra6nCY"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_with_text_PBnxr7": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_imBMKy": {
+          "type": "heading",
+          "settings": {
+            "heading": "Wool and Silk",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_RgW3Dh": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Wool & Silk Rugs offers hand-knotted rugs in various colorful and attractive designs. Their unconventional designs are inspired by Asian tapestries, modern artwork, and landscape photography. Most Wool & Silk rugs are created in Nepal, along with a limited collection from Afghanistan.</h3>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_UF9Kcd": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Wool and Silk",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_imBMKy",
+        "text_RgW3Dh",
+        "button_UF9Kcd"
+      ],
+      "custom_css": [],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-05_at_3.26.45_PM.png",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_bRkBVR": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_rhf6Ur": {
+          "type": "heading",
+          "settings": {
+            "heading": "Jaipur Rugs",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_UhiAFk": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Jaipur Rugs was founded in 1978 and works directly with artisans and local communities to offer Indian rugs based on 2500-year-old traditions. Through their Postcard Project, customers are connected with the artisan who crafted their purchase.</h3>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_adx8DL": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Jaipur Rugs",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_rhf6Ur",
+        "text_UhiAFk",
+        "button_adx8DL"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2023-12-28_at_7.07.09_PM.png",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_8Gx44r": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_4WVawV": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rug Star",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_FgfjFk": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Hand-knotted carpets from Rug Star feature striking, avant-garde designs. These bespoke rugs are designed in Berlin by Jürgen Dahlmanns and handcrafted in the Himalayan mountains, deserts of Rajasthan, and Afghanistan’s valleys.</h3>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_3V4p4t": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Rug Star",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_4WVawV",
+        "text_FgfjFk",
+        "button_3V4p4t"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2023-12-28_at_5.17.18_PM.png",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_KjpN47": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_EPUVjP": {
+          "type": "heading",
+          "settings": {
+            "heading": "New Moon",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_yqem4f": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>New Moon rugs are impeccably crafted using the time-honored tradition of Tibetan weaving. Their designs are created in-house and beautifully combine elements of traditional rugs with a contemporary aesthetic. New Moon is dedicated to the highest standards of craftsmanship and design and is committed to socially responsible business practices.</h3>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_7Bq9dR": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop New Moon",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_EPUVjP",
+        "text_yqem4f",
+        "button_7Bq9dR"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2023-12-28_at_8.00.37_PM.png",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_kBqtNg": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_Q7fWDi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Tufenkian Artisan Carpets",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_chPJX7": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Tufenkian uses ancient rug-making techniques and extraordinary materials to deliver an unparalleled range of designs. They are committed to positively impacting the communities where their rugs are made.</h3>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_cfW8fw": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Tufenkian",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Q7fWDi",
+        "text_chPJX7",
+        "button_cfW8fw"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2023-12-28_at_4.47.18_PM_1.png",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_6ddMbn": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_XEJ3aN": {
+          "type": "heading",
+          "settings": {
+            "heading": "Tamarian",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_t6KhbK": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>A Tamarian rug is a true work of art. Every step of production is completed with the care and touch of the human hand. Many of the techniques and tools have remained unchanged for centuries. Our dyemasters use a small pot dyeing process to enhance the material’s natural boldness and luster, while maintaining colorfastness for generations to come.</h3>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_Et8hUY": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Tamarian",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_XEJ3aN",
+        "text_t6KhbK",
+        "button_Et8hUY"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/657db236c680bd80d77e8a92_p-p-2000.webp",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    },
+    "image_with_text_hjfigi": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_ztxUHz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Feizy",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_xrdNEc": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Since 2000, Feizy, a family-owned company, has led the power-loomed carpet and rug industry. Our Gaziantep, Turkey factory, uniquely American-owned, combines modern weaving techniques with collaborative US and Turkey design to produce distinctive, high-value, and high-quality rugs that reflect American values.</h3>",
+            "text_size": "text-inherit"
+          }
+        },
+        "button_fzkwQD": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Feizy",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ztxUHz",
+        "text_xrdNEc",
+        "button_fzkwQD"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Maxwell-CDP-Desk.jpg",
+        "image_height": "adapt",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_8AbPwz",
+    "image_with_text_PBnxr7",
+    "image_with_text_bRkBVR",
+    "image_with_text_8Gx44r",
+    "image_with_text_KjpN47",
+    "image_with_text_kBqtNg",
+    "image_with_text_6ddMbn",
+    "image_with_text_hjfigi"
+  ]
+}

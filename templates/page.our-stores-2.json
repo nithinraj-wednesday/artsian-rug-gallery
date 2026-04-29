@@ -1,0 +1,149 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image_with_text_overlay_AG79JC": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_AjbKT7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Visit our Galleries",
+            "heading_size": "hd1",
+            "heading_tag": "h1",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_AjbKT7"
+      ],
+      "custom_css": [
+        "h1,h2 {font-size: 60.6632px !important;}"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_5.32.45_PM.png",
+        "desktop_height": "small",
+        "overlay_opacity": 40,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "",
+        "content_position": "middle-center",
+        "content_alignment": "center",
+        "mobile_height": "auto",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    },
+    "multicolumn_eWwJVJ": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_HA63YT": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_5.49.47_PM_9c45c8c6-70c3-4f6b-9875-6a20f80d126c.png",
+            "image_width": "full",
+            "title": "Denver | CO",
+            "heading_size": "h2",
+            "heading_tag": "h3",
+            "text": "<p>Artisan Rug Gallery’s flagship showroom opened in 2017, following an eighteen month transformation. What was once an industrial space became a haven for intricately crafted rugs. Located within a historic building, in the thriving RiNo arts community.</p><p>2800 Walnut St Suite 600</p><p>Denver Colorado 80205</p><p>303.825.0064</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_gjQchU": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/Screenshot_2024-01-13_at_5.51.31_PM.png",
+            "image_width": "full",
+            "title": "Crested Butte | CO",
+            "heading_size": "h2",
+            "heading_tag": "h3",
+            "text": "<p>Originally opened in 1990, the showroom is perched high in the Rocky Mountains and nestled into a vibrant mountain community of Crested Butte. The small but mighty gallery has attracted high-end homeowners, celebrities, and mountain enthusiasts alike. Our success in this mountainous enclave, not unlike the places where rug-making originates, inspired us to share our love for travel and handmade rugs with larger communities.</p><p>311 Elk Avenue</p><p>Crested Butte Colorado 81224</p><p>970.349.0116</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_w7zRYP": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/IMG_1996.jpg",
+            "image_width": "full",
+            "title": "Charlotte | NC",
+            "heading_size": "h2",
+            "heading_tag": "h3",
+            "text": "<p>Over the years, our team has grown to share our passion for globally curated and custom rugs.We’re grateful that this enthusiasm has allowed us to connect with the Charlotte community under the leadership of one of our earliest staff members, Jack Schmalfeld.</p><p>1401 Central Ave Suite 200-H</p><p>Charlotte, NC 28205</p><p>980.938.8786</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_HA63YT",
+        "column_gjQchU",
+        "column_w7zRYP"
+      ],
+      "custom_css": [
+        ".multicolumn img {aspect-ratio: 1 / 1; object-fit: cover; width: 100%;}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-sm",
+        "column_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "medium",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_AG79JC",
+    "multicolumn_eWwJVJ"
+  ]
+}

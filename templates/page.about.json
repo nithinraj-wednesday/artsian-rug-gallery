@@ -1,0 +1,226 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "hero": {
+      "type": "image-with-text-overlay",
+      "settings": {
+        "overlay_opacity": 30,
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "brand_story": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Our Story"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rugs designed around you",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We believe every room deserves a rug made exactly for it. That's why we offer the widest range of custom-sized rugs, made to your precise dimensions with a quality finish you can feel.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "subheading",
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 100,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "mission": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "craft": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "sustainability": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "values": {
+      "type": "multicolumn",
+      "blocks": {
+        "val_quality": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Quality",
+            "heading_size": "h3",
+            "text": "<p>Premium materials and careful finishing in every rug we make.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "val_custom": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Custom",
+            "heading_size": "h3",
+            "text": "<p>Any size, any shape — made exactly to your specifications.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "val_accessible": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Accessible",
+            "heading_size": "h3",
+            "text": "<p>Bespoke quality at prices that don't require a bespoke budget.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "val_service": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Service",
+            "heading_size": "h3",
+            "text": "<p>Dedicated support from sample to delivery and beyond.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "val_quality",
+        "val_custom",
+        "val_accessible",
+        "val_service"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "heading": "What we stand for",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "center",
+        "columns_desktop": 4,
+        "column_gap": "large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Find your perfect rug",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Now",
+            "button_link": "/collections/all",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "button"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "hero",
+    "brand_story",
+    "mission",
+    "craft",
+    "sustainability",
+    "values",
+    "cta"
+  ]
+}

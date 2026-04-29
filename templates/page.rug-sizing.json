@@ -1,0 +1,229 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "hero": {
+      "type": "image-with-text-overlay",
+      "settings": {
+        "overlay_opacity": 30,
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rug Sizing Guide",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Choosing the right rug size transforms a room. Use this guide to find the perfect fit for every space in your home.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "general_tips": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "General Sizing Tips",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Before choosing a size, lay tape on the floor to map out different dimensions. Leave at least 30–45cm of bare floor between the rug edge and the walls. Always measure your furniture arrangement, not just the room.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_alignment": "center",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "living_room": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "dining_room": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "bedroom": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "hallway": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "round_rugs": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "size_guide_table": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Common Rug Sizes by Room",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Living Room:</strong> 160×230cm, 200×290cm, 240×340cm<br/><strong>Dining Room:</strong> 200×290cm, 240×340cm (or custom)<br/><strong>Bedroom (Queen):</strong> 160×230cm, 200×290cm<br/><strong>Bedroom (King):</strong> 200×290cm, 240×340cm<br/><strong>Hallway Runner:</strong> 80×250cm, 80×300cm, or custom<br/><br/>Can't find the right size? All our rugs are available in any custom dimension.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_alignment": "center",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Need a custom size?",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every rug in our collection can be ordered in your exact dimensions. Just use the size picker on the product page.</p>",
+            "text_size": "text-base"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop All Rugs",
+            "button_link": "/collections/all",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "hero",
+    "intro",
+    "general_tips",
+    "living_room",
+    "dining_room",
+    "bedroom",
+    "hallway",
+    "round_rugs",
+    "size_guide_table",
+    "cta"
+  ]
+}

@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_liquid_gXGAW4": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div class=\"cf-wrap\">\n  <div class=\"cf-inner\">\n    <h1 class=\"cf-title\">Contact us</h1>\n\n    {%- form 'contact', id: 'ContactForm', class: 'cf-form' -%}\n      {%- if form.posted_successfully? -%}\n        <p class=\"cf-success\" role=\"status\">\n          Thanks for getting in touch. We’ll be back to you shortly.\n        </p>\n      {%- endif -%}\n\n      {%- if form.errors -%}\n        <div class=\"cf-errors\" role=\"alert\">\n          <p>Please correct the following:</p>\n          <ul>\n            {%- for field in form.errors -%}\n              <li>\n                {{ form.errors.translated_fields[field] | capitalize }}\n                {{ form.errors.messages[field] }}\n              </li>\n            {%- endfor -%}\n          </ul>\n        </div>\n      {%- endif -%}\n\n      <div class=\"cf-row cf-row--two\">\n        <div class=\"cf-field\">\n          <label for=\"ContactFormName\" class=\"cf-label\">\n            Name <span aria-hidden=\"true\">*</span>\n          </label>\n          <input\n            type=\"text\"\n            id=\"ContactFormName\"\n            name=\"contact[name]\"\n            class=\"cf-input\"\n            value=\"{{ form.name | default: customer.name }}\"\n            autocomplete=\"name\"\n            required\n          >\n        </div>\n\n        <div class=\"cf-field\">\n          <label for=\"ContactFormEmail\" class=\"cf-label\">\n            Email <span aria-hidden=\"true\">*</span>\n          </label>\n          <input\n            type=\"email\"\n            id=\"ContactFormEmail\"\n            name=\"contact[email]\"\n            class=\"cf-input\"\n            value=\"{{ form.email | default: customer.email }}\"\n            autocomplete=\"email\"\n            spellcheck=\"false\"\n            autocapitalize=\"off\"\n            required\n          >\n        </div>\n      </div>\n\n      <div class=\"cf-row\">\n        <div class=\"cf-field\">\n          <label for=\"ContactFormPhone\" class=\"cf-label\">Phone number</label>\n          <input\n            type=\"tel\"\n            id=\"ContactFormPhone\"\n            name=\"contact[phone]\"\n            class=\"cf-input\"\n            value=\"{{ form.phone | default: customer.phone }}\"\n            autocomplete=\"tel\"\n            pattern=\"[0-9\\-\\+\\s\\(\\)]*\"\n          >\n        </div>\n      </div>\n\n      <div class=\"cf-row\">\n        <div class=\"cf-field\">\n          <label for=\"ContactFormMessage\" class=\"cf-label\">\n            Message <span aria-hidden=\"true\">*</span>\n          </label>\n          <textarea\n            id=\"ContactFormMessage\"\n            name=\"contact[body]\"\n            class=\"cf-textarea\"\n            rows=\"8\"\n            placeholder=\"Your message\"\n            required\n          >{{ form.body }}</textarea>\n        </div>\n      </div>\n\n      <button type=\"submit\" class=\"cf-submit\">Submit</button>\n\n      <p class=\"cf-recaptcha\">\n        This site is protected by reCAPTCHA and the Google\n        <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Privacy Policy</a>\n        and\n        <a href=\"https://policies.google.com/terms\" target=\"_blank\" rel=\"noopener\">Terms of Service</a>\n        apply.\n      </p>\n    {%- endform -%}\n  </div>\n</div>\n\n<style>\n  .cf-wrap {\n    box-sizing: border-box;\n    width: 100%;\n    padding: 60px 20px;\n    background: #ffffff;\n    color: #5e5751;\n    font-family: inherit;\n  }\n\n  .cf-wrap *,\n  .cf-wrap *::before,\n  .cf-wrap *::after {\n    box-sizing: border-box;\n  }\n\n  .cf-inner {\n    max-width: 900px;\n    margin: 0 auto;\n  }\n\n  .cf-title {\n    font-size: 45.5px;\n    font-weight: 300;\n    color: #5e5751;\n    margin: 0 0 40px;\n    line-height: 1.1;\n    letter-spacing: 0.005em;\n  }\n\n  .cf-form { width: 100%; }\n\n  .cf-row {\n    display: grid;\n    grid-template-columns: 1fr;\n    gap: 24px;\n    margin-bottom: 24px;\n  }\n\n  .cf-row--two {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n    gap: 24px;\n  }\n\n  .cf-field {\n    display: flex;\n    flex-direction: column;\n    min-width: 0;\n  }\n\n  .cf-label {\n    display: block;\n    font-size: 16px;\n    font-weight: 300;\n    color: #8c8580;\n    margin: 0 0 8px;\n    letter-spacing: 0.02em;\n  }\n\n  .cf-label span {\n    color: #8c8580;\n    margin-left: 4px;\n  }\n\n  .cf-input,\n  .cf-textarea {\n    display: block;\n    width: 100%;\n    padding: 12px 14px;\n    font: inherit;\n    font-size: 1rem;\n    color: #5e5751;\n    background: #ffffff;\n    border: 1px solid #c8c0b6;\n    border-radius: 0;\n    outline: none;\n    transition: border-color 0.18s ease, box-shadow 0.18s ease;\n    -webkit-appearance: none;\n    appearance: none;\n    margin: 0;\n  }\n\n  .cf-input { height: 44px; }\n\n  .cf-textarea {\n    min-height: 160px;\n    resize: vertical;\n    line-height: 1.5;\n    font-family: inherit;\n  }\n\n.cf-input::placeholder,\n.cf-textarea::placeholder {\n  color: #b9b2ab;\n  opacity: 1;\n  font-size: 16px;\n  font-weight: 300;\n}\n\n  .cf-input:hover,\n  .cf-textarea:hover { border-color: #a89f93; }\n\n  .cf-input:focus,\n  .cf-textarea:focus {\n    border-color: #6e5a73;\n    box-shadow: 0 0 0 2px rgba(110, 90, 115, 0.12);\n  }\n\n  .cf-submit {\n    display: block;\n    width: 100%;\n    padding: 18px 24px;\n    margin-top: 16px;\n    font: inherit;\n    font-size: 0.875rem;\n    font-weight: 400;\n    letter-spacing: 0.2em;\n    text-transform: uppercase;\n    color: #ffffff;\n    background: #6e5a73;\n    border: none;\n    border-radius: 0;\n    cursor: pointer;\n    transition: background-color 0.18s ease;\n  }\n\n  .cf-submit:hover { background: #5a4860; }\n  .cf-submit:focus-visible {\n    outline: 2px solid #6e5a73;\n    outline-offset: 3px;\n  }\n\n  .cf-recaptcha {\n    margin: 16px 0 0;\n    font-size: 12.432px;\n    color: #8c8580;\n    line-height: 1.5;\n  }\n\n  .cf-recaptcha a {\n    color: #8c8580;\n    text-decoration: underline;\n  }\n\n  .cf-recaptcha a:hover { color: #5e5751; }\n\n  .cf-success {\n    padding: 12px 16px;\n    margin: 0 0 24px;\n    background: #f1f5ed;\n    color: #3f6b2a;\n    border-left: 3px solid #3f6b2a;\n    font-size: 0.9375rem;\n  }\n\n  .cf-errors {\n    padding: 12px 16px;\n    margin: 0 0 24px;\n    background: #fdf2f2;\n    color: #9b2c2c;\n    border-left: 3px solid #9b2c2c;\n    font-size: 0.9375rem;\n  }\n\n  .cf-errors p {\n    margin: 0 0 4px;\n    font-weight: 500;\n  }\n\n  .cf-errors ul {\n    margin: 0;\n    padding-left: 18px;\n  }\n\n  @media (max-width: 600px) {\n    .cf-wrap { padding: 40px 16px; }\n    .cf-title { margin-bottom: 28px; }\n    .cf-row--two { grid-template-columns: 1fr; gap: 20px; }\n  }\n</style>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_liquid_gXGAW4"
+  ]
+}

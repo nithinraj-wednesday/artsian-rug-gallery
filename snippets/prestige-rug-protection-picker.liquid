@@ -1,0 +1,413 @@
+{% comment %}
+  Prestige Rug Protection Picker Snippet
+  This snippet adds a radio button picker for selecting rug protection for prestige products.
+{% endcomment %}
+
+{%- assign product_form_id = product_form_id | default: 'product-form' -%}
+
+<div class="prestige-accordion-section">
+  <details class="prestige-accordion">
+    <summary class="prestige-accordion-header">
+      <h3 class="prestige-accordion-title">
+        Rug Protection<span id="value-of-protection-type" class="prestige-selected-value"></span>
+      </h3>
+      <div class="prestige-accordion-header-right">
+        {% comment %}
+          <span class="tooltip" title="Rug Protection Info">
+            {% render 'info-icon' %}
+            <span class="tooltip-text">
+              <p>
+                Pristine by STARK Carpet &amp; Rug Protector provides stronger resistance against stains than any known
+                product on the market.
+              </p>
+              <p><strong>The Pristine Advantage:</strong></p>
+              <ul>
+                <li>Repels liquids, soil and oils</li>
+                <li>Extremely abrasion resistant – reduces wear and tear</li>
+                <li>Blocks ultraviolet rays that cause fading</li>
+                <li>Drastically improves cleanability</li>
+                <li>100% non-toxic and pet friendly</li>
+              </ul>
+            </span>
+          </span>
+        {% endcomment %}
+        <svg
+          class="prestige-accordion-icon"
+          width="12"
+          height="8"
+          viewBox="0 0 12 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </summary>
+
+    <div class="prestige-accordion-content">
+      <div class="rug-protection-error rug-protection-error-hide" id="rug-protection-error">
+        Rug protection field is required
+      </div>
+
+      <input type="hidden" name="properties[Rug Protection]" form="{{product_form_id}}">
+      <input type="hidden" name="properties[_protectionhandler]" form="{{product_form_id}}">
+
+      <div class="prestige-options-container">
+        {% if shop.metaobjects.rug_protection.values %}
+          {% assign rug_protections = shop.metaobjects.rug_protection.values | sort: 'updated_at' %}
+          <div class="rug-protection-options">
+            <!-- None Option -->
+            <label class="rug-protection-option active" data-rug-protection-name="None">
+              <input
+                type="radio"
+                value="none"
+                class="rug-protection-radio"
+                form="{{product_form_id}}"
+                checked
+              >
+              <span class="rug-protection-label">None</span>
+              <div
+                class="rug-protection-price"
+                data-protection-price-value="0"
+                data-calculated-protection-price="0"
+              >
+                $0.00
+              </div>
+            </label>
+            {% for rug_protection in rug_protections %}
+              {% unless rug_protection.type.value == 'None' or rug_protection.type.value == 'none' %}
+                <label class="rug-protection-option" data-rug-protection-name="{{ rug_protection.type.value }}">
+                  <input
+                    type="radio"
+                    value="{{ rug_protection.type.value | handleize }}"
+                    class="rug-protection-radio"
+                    form="{{product_form_id}}"
+                  >
+                  <span class="rug-protection-label">{{ rug_protection.type.value }}</span>
+                  <div
+                    class="rug-protection-price"
+                    data-protection-price-value="{{ rug_protection.price.value }}"
+                    data-calculated-protection-price="0"
+                  >
+                    $ {{ rug_protection.price.value }}
+                  </div>
+                </label>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="center">No rug protections available</p>
+        {% endif %}
+      </div>
+    </div>
+  </details>
+</div>
+
+<style>
+  /* Accordion Styles */
+  .prestige-accordion-section {
+    margin-bottom: 16px;
+  }
+
+  .prestige-accordion {
+    border: .2px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  .prestige-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .prestige-accordion-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .prestige-accordion-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .prestige-accordion-title {
+    font-size: 1.6rem;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .prestige-accordion-icon {
+    transition: transform 0.3s ease;
+    color: #666;
+  }
+
+  .prestige-accordion[open] .prestige-accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  .prestige-accordion-content {
+    padding: 0 20px 20px 20px;
+  }
+
+  /* Rug Protection Specific Styles */
+  .prestige-rug-protection-section {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+  }
+
+  .prestige-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    {% comment %} margin-bottom: 16px; {% endcomment %}
+  }
+
+  .prestige-section-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .prestige-selected-value {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .tooltip {
+    position: relative;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    padding: 16px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+    bottom: 150%;
+  }
+
+  .tooltip .tooltip-text ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+    list-style: disc;
+  }
+
+  .tooltip .tooltip-text li {
+    margin-bottom: 4px;
+  }
+
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .prestige-options-container {
+    margin-top: 12px;
+  }
+
+  .rug-protection-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .rug-protection-option {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    min-width: 140px;
+    transition: all 0.2s ease;
+  }
+
+  .rug-protection-option:hover {
+    border-color: #999;
+  }
+
+  .rug-protection-option.active {
+    border: 2px solid #000;
+    background-color: #f9f9f9;
+  }
+
+  .rug-protection-radio {
+    display: none !important;
+  }
+
+  .rug-protection-label {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .rug-protection-price {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .rug-protection-error {
+    font-size: 1.2rem;
+    color: #d32f2f;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background-color: #ffebee;
+    border-radius: 4px;
+    border-left: 3px solid #d32f2f;
+  }
+
+  .rug-protection-error-hide {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .rug-protection-options {
+      justify-content: center;
+    }
+
+    .rug-protection-option {
+      flex: 1 1 calc(50% - 6px);
+      min-width: 120px;
+    }
+
+    .tooltip .tooltip-text {
+      width: 240px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async function () {
+    const rugProtectionRadios = document.querySelectorAll('.rug-protection-radio');
+    const value = document.getElementById('value-of-protection-type');
+    const rugProtectionInput = document.querySelector('input[name="properties[Rug Protection]"]');
+    const rugProtectionHandler = document.querySelector('input[name="properties[_protectionhandler]"]');
+    var currency = '{{shop.currency}}';
+    var currencySymbol = '{{ 25 | money | slice: 0, 1 }}';
+    let lastSelectedRadio = null;
+
+    rugProtectionRadios.forEach(function (radio) {
+      radio.addEventListener('click', function (event) {
+        const shapePickerError = document.getElementById('shape-picker-error');
+
+        if (shapePickerError && !shapePickerError.classList.contains('shape-picker-error-hide')) {
+          return;
+        }
+
+        const priceItem = document.querySelector('.prestige-price');
+        const selectedOption = this.closest('.rug-protection-option');
+        const selectedRugProtectionName = selectedOption.dataset.rugProtectionName;
+        const selectedRugProtectionHandler = this.value;
+        const prevPrice = priceItem ? parseFloat(priceItem.getAttribute('data-dimension-modified-price')) || 0 : 0;
+        const dataRugProtectionPrice = priceItem
+          ? parseFloat(priceItem.getAttribute('data-rug-protection-price')) || 0
+          : 0;
+        const dataRugPadPrice = priceItem ? parseFloat(priceItem.getAttribute('data-rug-pad-price')) || 0 : 0;
+        const dataSergingPrice = priceItem ? parseFloat(priceItem.getAttribute('data-serging-price')) || 0 : 0;
+
+        document.getElementById('rug-protection-error').classList.add('rug-protection-error-hide');
+
+        const existingRugProtectionPrice =
+          parseFloat(
+            selectedOption.querySelector('.rug-protection-price').getAttribute('data-calculated-protection-price')
+          ) || 0;
+
+        if (lastSelectedRadio === this) {
+          this.checked = false;
+          selectedOption.classList.remove('active');
+          value.textContent = '';
+          rugProtectionInput.value = null;
+          rugProtectionHandler.value = '';
+          lastSelectedRadio = null;
+          if (priceItem) {
+            priceItem.setAttribute('data-rug-protection-price', 0);
+            updatePriceItem(prevPrice + dataRugPadPrice + dataSergingPrice);
+          }
+        } else {
+          document.querySelectorAll('.rug-protection-option').forEach(function (option) {
+            option.classList.remove('active');
+          });
+
+          selectedOption.classList.add('active');
+
+          // Show value text and set input value
+          if (selectedRugProtectionName.toLowerCase() !== 'none') {
+            value.textContent = `: ${selectedRugProtectionName}`;
+            rugProtectionInput.value = selectedRugProtectionName;
+            rugProtectionHandler.value = selectedRugProtectionHandler;
+          } else {
+            value.textContent = ': None';
+            rugProtectionInput.value = 'None';
+            rugProtectionHandler.value = 'None';
+          }
+
+          lastSelectedRadio = this;
+
+          const totalPrice = prevPrice + dataRugPadPrice + existingRugProtectionPrice + dataSergingPrice;
+          if (priceItem) {
+            priceItem.setAttribute('data-rug-protection-price', existingRugProtectionPrice.toFixed(2));
+            updatePriceItem(totalPrice);
+          }
+        }
+      });
+    });
+
+    function updatePriceItem(totalPrice) {
+      const roundedPrice = Math.ceil(totalPrice);
+      const priceItem = document.querySelector('.prestige-price');
+      if (priceItem) {
+        const formattedPrice = new Intl.NumberFormat('en-US', {
+          style: 'decimal',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }).format(roundedPrice);
+        priceItem.innerHTML = `${currencySymbol}${formattedPrice}`;
+        priceItem.setAttribute('data-modified-price', totalPrice);
+      }
+    }
+
+    // Initialize default "None" selection display
+    const defaultChecked = document.querySelector('.rug-protection-radio:checked');
+    if (defaultChecked) {
+      const selectedOption = defaultChecked.closest('.rug-protection-option');
+      const selectedRugProtectionName = selectedOption.dataset.rugProtectionName;
+      if (value && selectedRugProtectionName) {
+        value.textContent =
+          selectedRugProtectionName.toLowerCase() === 'none' ? ': None' : `: ${selectedRugProtectionName}`;
+      }
+      // Set default values for None
+      if (selectedRugProtectionName.toLowerCase() === 'none') {
+        rugProtectionInput.value = 'None';
+        rugProtectionHandler.value = 'none';
+      }
+    }
+  });
+</script>

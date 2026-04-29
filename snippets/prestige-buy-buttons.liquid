@@ -1,0 +1,550 @@
+{% comment %}
+  Prestige Buy Buttons Snippet (adapted for Sleek/FoxEcom theme)
+
+  1. Validates all configuration selections
+  2. Makes API call to middleware to create custom product
+  3. Adds the created product to cart
+  4. Opens Sleek's cart drawer
+{% endcomment %}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign inventory_quantity = variant.inventory_quantity
+  assign inventory_policy = variant.inventory_policy
+
+  if variant.inventory_management == 'shopify'
+    assign inventory_managed = true
+  endif
+
+  assign can_add_to_cart = false
+  assign add_to_cart_text = 'products.product.unavailable' | t
+
+  if variant
+    if variant.quantity_rule.min > variant.inventory_quantity and inventory_managed and inventory_policy == 'deny'
+      assign quantity_rule_soldout = true
+    endif
+
+    if variant.available
+      assign can_add_to_cart = true
+      assign add_to_cart_text = 'products.product.add_to_cart' | t
+    elsif inventory_managed and inventory_quantity <= 0 and inventory_policy == 'deny' or quantity_rule_soldout
+      assign can_add_to_cart = false
+      assign add_to_cart_text = 'products.product.sold_out' | t
+    else
+      assign can_add_to_cart = false
+      assign add_to_cart_text = 'products.product.unavailable' | t
+    endif
+  endif
+
+  assign product_form_id = 'PrestigeProductForm-' | append: section.id
+-%}
+
+{%- if product != blank -%}
+  <div class="prestige-buy-buttons-wrapper">
+    <div class="product-form__error-message-wrapper" role="alert" hidden>
+      <span class="product-form__error-message"></span>
+    </div>
+
+    {%- form 'product', product,
+      id: product_form_id,
+      class: 'prestige-product-form',
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form'
+    -%}
+      <input
+        type="hidden"
+        name="id"
+        value="{{ product.selected_or_first_available_variant.id }}"
+        class="product-variant-id form-data-variant-id"
+      >
+      <input
+        type="hidden"
+        value="{{ product.selected_or_first_available_variant.id }}"
+        class="original-form-data-variant-id"
+      >
+      <input type="hidden" name="product-id" value="{{ product.id }}">
+      <input
+        type="hidden"
+        name="properties[_image]"
+        value="{{ product.selected_or_first_available_variant.featured_image.src | default: product.featured_image.src }}"
+      >
+
+      <div class="product-form-buttons">
+        {%- comment -%} Main middleware button {%- endcomment -%}
+        <button
+          id="PrestigeProductSubmitButton-{{ section.id }}"
+          type="button"
+          class="prestige-middleware-btn btn btn--primary w-full"
+          {% if variant.available == false or quantity_rule_soldout or variant == null %}
+            disabled
+          {% endif %}
+        >
+          <span class="btn-text">
+            <span class="btn-text-inner">
+              {%- if variant == null -%}
+                {{ 'products.product.unavailable' | t }}
+              {%- elsif variant.available == false or quantity_rule_soldout -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- else -%}
+                {{ add_to_cart_text | upcase }}
+              {%- endif -%}
+            </span>
+          </span>
+          <span class="prestige-loading-spinner hidden">
+            <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+              <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+            </svg>
+          </span>
+        </button>
+
+        {%- comment -%} Hidden actual submit button {%- endcomment -%}
+        <button
+          id="ProductSubmitButton-{{ section.id }}"
+          type="submit"
+          name="add"
+          class="btn btn--primary w-full hidden prestige-action-btn"
+          {% if variant.available == false or quantity_rule_soldout or variant == null %}
+            disabled
+          {% endif %}
+        >
+          <span>
+            {%- if variant == null -%}
+              {{ 'products.product.unavailable' | t }}
+            {%- elsif variant.available == false or quantity_rule_soldout -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- else -%}
+              {{ add_to_cart_text }}
+            {%- endif -%}
+          </span>
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+{%- else -%}
+  <div class="prestige-buy-buttons-wrapper">
+    <button type="button" class="btn btn--primary w-full" disabled>
+      {{ 'products.product.sold_out' | t }}
+    </button>
+  </div>
+{%- endif -%}
+
+<style>
+  .prestige-buy-buttons-wrapper {
+    margin-top: 16px;
+  }
+
+  .prestige-middleware-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .prestige-middleware-btn:disabled {
+    opacity: 0.7;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .prestige-loading-spinner {
+    width: 1.4rem;
+    height: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .prestige-loading-spinner.hidden {
+    display: none;
+  }
+
+  .prestige-loading-spinner svg {
+    animation: rotator 1.4s linear infinite;
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes rotator {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+  }
+
+  .prestige-loading-spinner .path {
+    stroke: white;
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite;
+  }
+
+  @keyframes dash {
+    0% { stroke-dashoffset: 187; }
+    50% { stroke-dashoffset: 46.75; transform: rotate(135deg); }
+    100% { stroke-dashoffset: 187; transform: rotate(450deg); }
+  }
+
+  .btn-text-inner.slide-up {
+    animation: btnTextSlideUp 0.35s ease forwards;
+  }
+
+  @keyframes btnTextSlideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .product-form__error-message-wrapper {
+    background: #ffebee;
+    border-left: 3px solid #d32f2f;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    color: #d32f2f;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  // Sync prestige form variant ID when product-info.js updates the variant
+  // (fires after standard variant-selects color change is processed)
+  document.addEventListener('variant:changed', function (e) {
+    const variant = e.detail?.variant;
+    if (!variant) return;
+    document.querySelectorAll('.form-data-variant-id, .original-form-data-variant-id').forEach(function (input) {
+      input.value = variant.id;
+    });
+    const middlewareBtn = document.querySelector('.prestige-middleware-btn');
+    if (middlewareBtn) middlewareBtn.disabled = !variant.available;
+  });
+
+  document.addEventListener('DOMContentLoaded', async function () {
+
+    const middlewareBtn = document.querySelector('.prestige-middleware-btn');
+
+    const retryConfig = {
+      initialWaitTime: 2000,
+      maxAttempts: 4,
+    };
+
+    async function retryWithBackoff(fetchFn, attempt = 1) {
+      try {
+        return await fetchFn();
+      } catch (error) {
+        if (attempt >= retryConfig.maxAttempts) throw error;
+        const waitTime = retryConfig.initialWaitTime * Math.pow(2, attempt - 1);
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
+        return retryWithBackoff(fetchFn, attempt + 1);
+      }
+    }
+
+    // Check PricingConfigs availability
+    if (typeof PricingConfigs !== 'undefined' && PricingConfigs.getConfigs) {
+      try {
+        const { isError } = await PricingConfigs.getConfigs();
+        if (middlewareBtn && isError) {
+          middlewareBtn.style.display = 'none';
+        }
+      } catch (error) {}
+    }
+
+    if (!middlewareBtn) return;
+
+    const loadingMessages = [
+      'Measuring your custom rug\u2026',
+      'Selecting the perfect fibers\u2026',
+      'Preparing your design\u2026',
+      'Aligning pattern and size\u2026',
+      'Crafting your rug to order\u2026',
+      'Hand-finishing the details\u2026',
+      'Finalizing your custom piece\u2026',
+      'Almost ready for your home\u2026',
+    ];
+
+    middlewareBtn.addEventListener('click', async (event) => {
+      event.preventDefault();
+
+      const loadingSpinner = middlewareBtn.querySelector('.prestige-loading-spinner');
+      const btnTextInner = middlewareBtn.querySelector('.btn-text-inner');
+      const originalText = btnTextInner?.textContent || '';
+
+      const animateText = (text) => {
+        if (!btnTextInner) return;
+        btnTextInner.classList.remove('slide-up');
+        void btnTextInner.offsetWidth;
+        btnTextInner.textContent = text;
+        btnTextInner.classList.add('slide-up');
+      };
+
+      let msgIndex = 0;
+      animateText(loadingMessages[msgIndex]);
+      if (loadingSpinner) loadingSpinner.classList.remove('hidden');
+      middlewareBtn.disabled = true;
+
+      const msgInterval = setInterval(() => {
+        msgIndex = (msgIndex + 1) % loadingMessages.length;
+        animateText(loadingMessages[msgIndex]);
+      }, 2000);
+
+      const stopLoading = (errorText) => {
+        clearInterval(msgInterval);
+        if (loadingSpinner) loadingSpinner.classList.add('hidden');
+        if (errorText) {
+          animateText(errorText);
+          middlewareBtn.disabled = false;
+          setTimeout(() => animateText(originalText), 4000);
+        } else {
+          animateText(originalText);
+          middlewareBtn.disabled = false;
+        }
+      };
+
+      const onCartUpdate = () => setTimeout(() => stopLoading(), 500);
+      document.addEventListener('cart:refresh', onCartUpdate, { once: true });
+
+      try {
+        await createAndAddProduct();
+      } catch (error) {
+        document.removeEventListener('cart:refresh', onCartUpdate);
+        const errorMessages = [
+          'Oops! Something went wrong \u2014 try again',
+          "That didn't go through \u2014 give it another go",
+          'Hmm, we hit a snag \u2014 please retry',
+        ];
+        stopLoading(errorMessages[Math.floor(Math.random() * errorMessages.length)]);
+        showErrorMessage(error.message || 'An error occurred. Please try again.');
+      }
+    });
+
+    async function createAndAddProduct() {
+      const variantId = document.querySelector('.form-data-variant-id')?.value;
+      const shapePicker = document.querySelector('.shape-picker');
+      const shopId = '{{ shop.id }}';
+      const shopName = '{{ shop.domain | split: "." | first }}';
+
+      // Get selected variant title from Sleek's variant-selects
+      const selectedVariantOption = document.querySelector('variant-selects input[type="radio"]:checked');
+      const selectedVariantTitle = selectedVariantOption?.value || '';
+
+      const rugPadType = document.getElementsByName('properties[_padhandler]')[0]?.value;
+      const rugProtectionType = document.getElementsByName('properties[_protectionhandler]')[0]?.value;
+
+      // Validation
+      const missingSections = [];
+      const scrollToSection = {
+        'shape-picker': '.prestige-shape-picker-wrapper',
+        'rug-pad': '.prestige-rug-pad-wrapper',
+        'rug-protection': '.prestige-rug-protection-wrapper',
+      };
+
+      const shapePickerHasError = document.getElementById('shape-picker-error');
+      if (shapePickerHasError && !shapePickerHasError.classList.contains('shape-picker-error-hide')) {
+        missingSections.push('shape-picker');
+      }
+
+      if (!shapePicker || parseFloat(shapePicker.dataset.area) === 0) {
+        if (shapePickerHasError) shapePickerHasError.classList.remove('shape-picker-error-hide');
+        missingSections.push('shape-picker');
+      }
+
+      if (!rugPadType || rugPadType === '') {
+        const rugPadError = document.getElementById('rug-pad-error');
+        if (rugPadError) rugPadError.classList.remove('rug-pad-error-hide');
+        missingSections.push('rug-pad');
+      }
+
+      if (!rugProtectionType || rugProtectionType === '') {
+        const rugProtectionError = document.getElementById('rug-protection-error');
+        if (rugProtectionError) rugProtectionError.classList.remove('rug-protection-error-hide');
+        missingSections.push('rug-protection');
+      }
+
+      if (missingSections.length > 0) {
+        const firstErrorSection = document.querySelector(scrollToSection[missingSections[0]]);
+        if (firstErrorSection) firstErrorSection.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        throw new Error('Please complete all required selections');
+      }
+
+      const diameterSelect = document.getElementById('DiameterSelect');
+      const diameterInchSelect = document.getElementById('DiameterInchSelect');
+      const lengthSelect = document.getElementById('LengthSelect');
+      const lengthInchSelect = document.getElementById('LengthInchSelect');
+      const widthSelect = document.getElementById('WidthSelect');
+      const widthInchSelect = document.getElementById('WidthInchSelect');
+
+      const shapeInput = document.querySelector('input[name="shape"]:checked');
+      if (!shapeInput) throw new Error('Please select a shape');
+      const shape = shapeInput.value.toUpperCase();
+
+      let dimensions = {};
+      if (shape === 'ROUND') {
+        dimensions = {
+          diameter_feet: parseInt(diameterSelect?.value || 0, 10),
+          diameter_inches: parseInt(diameterInchSelect?.value || 0, 10),
+        };
+      } else {
+        dimensions = {
+          length_feet: parseInt(lengthSelect?.value || 0, 10),
+          length_inches: parseInt(lengthInchSelect?.value || 0, 10),
+          width_feet: parseInt(widthSelect?.value || 0, 10),
+          width_inches: parseInt(widthInchSelect?.value || 0, 10),
+        };
+      }
+
+      const payload = {
+        baseVariantId: `gid://shopify/ProductVariant/${variantId}`,
+        shape: shape,
+        dimensions: dimensions,
+        shopId: shopId,
+        shopName: shopName,
+        rugPadTye: rugPadType && rugPadType !== '' ? rugPadType : null,
+        rugProtectionType: rugProtectionType && rugProtectionType !== '' ? rugProtectionType : null,
+      };
+
+      const createProductFn = () =>
+        fetch('https://dev.fabric-middleware.ngrok.app/v2/products', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'shop-name': shopName,
+            'shop-id': shopId,
+          },
+          body: JSON.stringify(payload),
+        }).then(async (response) => {
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `API error: ${response.status}`);
+          }
+          return response.json();
+        });
+
+      const data = await retryWithBackoff(createProductFn);
+      await handleProductCreation(data, selectedVariantTitle);
+    }
+
+    async function handleProductCreation(response, originalVariantTitle) {
+      let selectedVariant = response.variants.nodes[0];
+
+      if (response.variants.nodes.length > 1 && originalVariantTitle) {
+        const matchingVariant = response.variants.nodes.find(
+          (v) => (v.title || '').toLowerCase() === originalVariantTitle.toLowerCase()
+        );
+        if (matchingVariant) selectedVariant = matchingVariant;
+      }
+
+      const productId = response.id.split('/').pop();
+      const variantId = selectedVariant.id.split('/').pop();
+
+      try {
+        const shapeInput = document.querySelector('input[name="shape"]:checked');
+        const shape = shapeInput?.value || 'Rectangular';
+        const n = (v) => { v = parseInt(v, 10); return Number.isFinite(v) ? v : 0; };
+
+        let properties = {
+          _shape: shape,
+          _parenturl: window.location.href.split('?')[0],
+          Shape: shape,
+        };
+
+        if (shape === 'Round') {
+          const diameterFeet = n(document.getElementById('DiameterSelect')?.value);
+          const diameterInch = n(document.getElementById('DiameterInchSelect')?.value);
+          properties._diameter = diameterFeet * 12 + diameterInch;
+          properties._width = 0;
+          properties._length = 0;
+          let sizeStr = diameterFeet + "'";
+          if (diameterInch > 0) sizeStr += ' ' + diameterInch + '"';
+          sizeStr += ' Diameter';
+          properties.Size = sizeStr;
+        } else {
+          const widthFeet = n(document.getElementById('WidthSelect')?.value);
+          const widthInch = n(document.getElementById('WidthInchSelect')?.value);
+          const lengthFeet = n(document.getElementById('LengthSelect')?.value);
+          const lengthInch = n(document.getElementById('LengthInchSelect')?.value);
+          properties._width = widthFeet * 12 + widthInch;
+          properties._length = lengthFeet * 12 + lengthInch;
+          properties._diameter = 0;
+          let sizeStr = widthFeet + "'";
+          if (widthInch > 0) sizeStr += ' ' + widthInch + '"';
+          sizeStr += ' x ' + lengthFeet + "'";
+          if (lengthInch > 0) sizeStr += ' ' + lengthInch + '"';
+          properties.Size = sizeStr;
+        }
+
+        const rugPadHandler = document.querySelector('input[name="properties[_padhandler]"]')?.value;
+        const rugPadDisplay = document.querySelector('input[name="properties[Rug Pad]"]')?.value;
+        const rugProtectionHandler = document.querySelector('input[name="properties[_protectionhandler]"]')?.value;
+        const rugProtectionDisplay = document.querySelector('input[name="properties[Rug Protection]"]')?.value;
+        const edgeStyle = document.querySelector('input[name="properties[Edge style]"]')?.value;
+
+        if (rugPadHandler) properties._padhandler = rugPadHandler;
+        if (rugPadDisplay) properties['Rug Pad'] = rugPadDisplay;
+        if (rugProtectionHandler) properties._protectionhandler = rugProtectionHandler;
+        if (rugProtectionDisplay) properties['Rug Protection'] = rugProtectionDisplay;
+        if (edgeStyle) properties['Edge style'] = edgeStyle;
+
+        if (response.featuredImage?.url) {
+          properties._image = response.featuredImage.url;
+        } else {
+          const currentImage = document.querySelector('.product__media img, .media img')?.src;
+          if (currentImage) properties._image = currentImage;
+        }
+
+        const addToCartFn = () =>
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              items: [{ id: variantId, quantity: 1, properties: properties }],
+              sections: 'cart-drawer',
+            }),
+          }).then(async (response) => {
+            if (!response.ok) {
+              const errorData = await response.json().catch(() => ({}));
+              throw new Error(errorData.message || errorData.description || 'Failed to add to cart');
+            }
+            return response.json();
+          });
+
+        const cartData = await retryWithBackoff(addToCartFn);
+
+        // Dispatch cart:refresh event for Sleek theme to update cart count
+        document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true, detail: { cartData } }));
+
+        // Open Sleek's cart drawer
+        setTimeout(() => {
+          // Try Sleek's cart-drawer web component
+          const cartDrawer = document.getElementById('CartDrawer');
+          if (cartDrawer) {
+            if (typeof cartDrawer.open === 'function') {
+              cartDrawer.open();
+            } else {
+              cartDrawer.removeAttribute('hidden');
+              cartDrawer.setAttribute('open', '');
+              document.body.classList.add('drawer-open');
+            }
+          }
+
+          // Also try dispatching drawer:open event
+          document.dispatchEvent(new CustomEvent('drawer:open', {
+            bubbles: true,
+            detail: { drawerId: 'CartDrawer' }
+          }));
+        }, 300);
+
+      } catch (error) {
+        throw new Error(error.message || 'Failed to add to cart. Please try again.');
+      }
+    }
+
+    function showErrorMessage(message) {
+      const errorWrapper = document.querySelector('.product-form__error-message-wrapper');
+      const errorMessage = document.querySelector('.product-form__error-message');
+      if (errorWrapper && errorMessage) {
+        errorMessage.textContent = message;
+        errorWrapper.removeAttribute('hidden');
+        setTimeout(() => errorWrapper.setAttribute('hidden', ''), 5000);
+      }
+    }
+  });
+</script>

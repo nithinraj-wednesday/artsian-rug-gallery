@@ -1,0 +1,172 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "main": {
+      "type": "prestige-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "prestige_price": {
+          "type": "prestige_price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_type": "variant_image",
+            "button_style": "circle",
+            "button_size": 60,
+            "size_title": "Size"
+          }
+        },
+        "prestige_shape_picker": {
+          "type": "prestige_shape_picker",
+          "settings": {
+            "show_disclaimer": true
+          }
+        },
+        "prestige_buy_buttons": {
+          "type": "prestige_buy_buttons",
+          "settings": {}
+        },
+        "prestige_sample_atc": {
+          "type": "prestige_sample_atc",
+          "settings": {
+            "button_label": "Order a Sample",
+            "sample_note": "Free shipping on samples"
+          }
+        },
+        "fabric_specs": {
+          "type": "fabric_specs",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "prestige_price",
+        "variant_picker",
+        "prestige_shape_picker",
+        "prestige_buy_buttons",
+        "prestige_sample_atc"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "enable_sticky_info": true,
+        "gallery_layout": "vertical-carousel",
+        "media_size": "large",
+        "mobile_thumbnails": "hide",
+        "enable_image_zoom": true,
+        "padding_top": 0,
+        "padding_bottom": 100
+      }
+    },
+    "image_with_text_overlay_Y7bxYf": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_7hhcJp": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image with text overlay{{ product.title }}",
+            "heading_size": "hd1",
+            "heading_tag": "h2",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7hhcJp"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "{{ product.featured_image }}",
+        "desktop_height": "extra-medium",
+        "overlay_opacity": 40,
+        "enable_parallax": true,
+        "parallax_direction": "horizontal",
+        "color_scheme": "",
+        "content_position": "middle-left",
+        "content_alignment": "left",
+        "mobile_height": "auto",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    },
+    "custom_liquid_WegePY": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n  .product-content {\n    display: flex;\n    gap: 24px;\n  }\n  .ai-heading {\n    flex: 0 0 50%;\n  }\n  .product-description {\n    flex: 0 0 50%;\n  }\n  .product-description {\n   font-size: 18px;\n   }\n  .ai-heading-main{\n  font-size: 40px;\n    }\n  \n  @media screen and (max-width: 749px) {\n    .product-content {\n      flex-direction: column;\n      gap: 16px;\n    }\n    .ai-heading,\n    .product-description {\n      flex: 0 0 100%;\n    }\n  }\n</style>\n\n<div class=\"page-width\">{{ product.description }}</div>",
+        "color_scheme": "",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    },
+    "featured_collection_QQkYKN": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".f-price-item {display: none;}"
+      ],
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "Featured collection",
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "show_collection_description": false,
+        "collection": "explore-custom-area-rugs",
+        "limit": 8,
+        "columns": 4,
+        "column_gap": "medium",
+        "row_gap": "inherit",
+        "grid_layout": "standard",
+        "enable_slider": true,
+        "controls_position": "inside",
+        "pcard_image_ratio": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "show_all_button_on_top": false,
+        "button_label": "",
+        "button_style": "btn--primary",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "image_with_text_overlay_Y7bxYf",
+    "custom_liquid_WegePY",
+    "featured_collection_QQkYKN"
+  ]
+}

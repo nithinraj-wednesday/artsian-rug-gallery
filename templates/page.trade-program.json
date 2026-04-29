@@ -1,0 +1,211 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "h1",
+        "heading_tag": "h1",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image_with_text_overlay_mrtrcb": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_c6QbfW": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "DESIGNER"
+          }
+        },
+        "heading_wGwYNH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trade Program",
+            "heading_size": "hd1",
+            "heading_tag": "h3",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_Xk4Rm9": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Welcome to Artisan Rug Gallery's Trade Program for Designers! As a product and industry expert, we understand the importance of providing exceptional services to designers like you. Our Trade Program is specifically designed to cater to your unique needs and requirements, ensuring a seamless experience and access to our diverse and vast collection or rugs and carpet</h3>",
+            "text_size": "text-inherit"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_c6QbfW",
+        "heading_wGwYNH",
+        "text_Xk4Rm9"
+      ],
+      "custom_css": [
+        ".rich-text__subheading {font-size: 12px; font-weight: 300; margin-bottom: 8px; letter-spacing: 1.5px;}"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_2.55.51_PM.png",
+        "desktop_height": "medium",
+        "overlay_opacity": 40,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "scheme-inverse",
+        "content_position": "middle-center",
+        "content_alignment": "center",
+        "mobile_height": "auto",
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "custom_class": ""
+      }
+    },
+    "image_with_text_xeK36i": {
+      "type": "image-with-text",
+      "blocks": {
+        "text_xpRq9N": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>By joining our Trade Program, you gain access to our generous Designer Discount Programs and a Trade login for our website. We recognize that each design project is unique, and we are committed to providing customized solutions to meet your specific requirements. Whether you need a specific size, shape, or material for your project, our team will work closely with you to create the perfect solution for your design vision.</h2>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "text_xpRq9N"
+      ],
+      "custom_css": [],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_3.15.53_PM.png",
+        "image_height": "extra-medium",
+        "layout": "text_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "center",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "right",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "",
+        "body_text_size": 26
+      }
+    },
+    "image_with_text_jP6nm6": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_JbdJni": {
+          "type": "heading",
+          "settings": {
+            "heading": "Custom Rug Design",
+            "heading_size": "hd1",
+            "heading_tag": "h1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_JYACqX": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>With our custom rug creation service, you have the opportunity to choose every aspect of your rug, from the size and shape to the colors and patterns. Whether you have a specific design in mind or need guidance in creating a rug that suits your style and preferences, our experts are here to assist you every step of the way.</h2>",
+            "text_size": "text-lg"
+          }
+        },
+        "button_7GGxen": {
+          "type": "button",
+          "settings": {
+            "button_label": "Learn More about the custom porcess",
+            "button_link": "shopify://pages/about-us",
+            "button_style": "btn--underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading_JbdJni",
+        "text_JYACqX",
+        "button_7GGxen"
+      ],
+      "custom_css": [],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_3.35.29_PM.png",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "center",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ".template--22209286963436__image_with_text_jP6nm6__heading_JbdJni { font-size: 60px; }",
+        "body_text_size": 26
+      }
+    },
+    "image_with_text_overlay_tkt7Xt": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_VXUqC3": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "CONTACT ARTISAN RUG GALLERY"
+          }
+        },
+        "text_yMEqeR": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"https://www.artisanruggallery.com/pages/contact-us-1\">Contact Us</a></p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_VXUqC3",
+        "text_yMEqeR"
+      ],
+      "custom_css": [
+        ".rich-text__subheading {font-size: 12.432px; color: #ffffff; font-weight: 300}"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/Screenshot_2024-01-13_at_3.45.32_PM.png",
+        "desktop_height": "small",
+        "overlay_opacity": 40,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "scheme-inverse",
+        "content_position": "middle-center",
+        "content_alignment": "center",
+        "mobile_height": "auto",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_mrtrcb",
+    "image_with_text_xeK36i",
+    "image_with_text_jP6nm6",
+    "image_with_text_overlay_tkt7Xt"
+  ]
+}

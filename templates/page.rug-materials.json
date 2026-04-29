@@ -1,0 +1,163 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "hero": {
+      "type": "image-with-text-overlay",
+      "settings": {
+        "overlay_opacity": 30,
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rug Materials Guide",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every material tells a different story. Learn about the fibres, textures, and qualities behind our rugs to find the perfect match for your space.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "wool": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "viscose": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "cotton": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "jute_sisal": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "synthetic": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Not sure which material is right for you?",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Order a free sample to feel the difference before you decide.</p>",
+            "text_size": "text-base"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Browse Rugs",
+            "button_link": "/collections/all",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "hero",
+    "intro",
+    "wool",
+    "viscose",
+    "cotton",
+    "jute_sisal",
+    "synthetic",
+    "cta"
+  ]
+}

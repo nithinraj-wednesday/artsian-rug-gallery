@@ -1,0 +1,46 @@
+{% comment %}
+  Prestige Price Snippet (adapted for Sleek/FoxEcom theme)
+  Displays price for prestige products. Updated by JavaScript based on dimensions/selections.
+{% endcomment %}
+
+{%- liquid
+  assign selected_variant = product.selected_or_first_available_variant
+  assign initial_price = selected_variant.price | times: 12 | ceil
+  assign compare_at_price = selected_variant.compare_at_price | times: 12 | ceil
+
+  assign show_compare_price = false
+  if compare_at_price > initial_price
+    assign show_compare_price = true
+  endif
+
+  if product == blank
+    assign initial_price = 1999 | times: 12 | ceil
+  endif
+-%}
+
+<div class="prestige-price-wrapper">
+  <div class="price-block" style="display: flex; flex-direction: column; gap: 8px;">
+    {% if show_compare_price %}
+      <span class="compare-at-price" style="font-size: 1.2rem; color: #999; text-decoration: line-through;">
+        {{- compare_at_price | money_with_currency -}}
+      </span>
+    {% endif %}
+
+    <span
+      class="prestige-price"
+      data-initial-price="{{ initial_price }}"
+      data-dimension-modified-price="0"
+      data-rug-pad-price="0"
+      data-rug-protection-price="0"
+      data-serging-price="0"
+      data-modified-price="0"
+      style="font-size: 1.5rem; font-weight: 500; color: var(--color-foreground, #000);"
+    >
+      Select dimension
+    </span>
+
+    <p class="prestige-price-note" style="font-size: 12px; line-height: 1.4; color: #666; margin: 4px 0 0 0;">
+      Please select fields below for final pricing calculation.
+    </p>
+  </div>
+</div>

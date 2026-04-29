@@ -1,0 +1,448 @@
+{% comment %}
+  Prestige Product Section — block-based layout mirroring main-product.liquid.
+  Adds prestige_price, prestige_shape_picker, prestige_buy_buttons,
+  prestige_sample_atc block types on top of all standard Sleek blocks.
+{% endcomment %}
+
+{%- liquid
+  assign media_layout = section.settings.gallery_layout | default: 'carousel'
+  assign mobile_thumbnails = section.settings.mobile_thumbnails | default: 'hide'
+  assign enable_image_zoom = section.settings.enable_image_zoom | default: false
+  assign enable_sticky_info = section.settings.enable_sticky_info
+
+  assign product_class = 'product--' | append: section.settings.media_size
+  assign product_class = product_class | append: ' product--' | append: media_layout
+  assign product_class = product_class | append: ' product--media-has-' | append: product.media.size
+  if product.media.size > 1
+    assign product_class = product_class | append: ' product--media-has-many'
+  endif
+
+  case media_layout
+    when 'grid-mix'
+      assign media_modulo = product.media.size | modulo: 3
+      if media_modulo == 2
+        assign product_class = product_class | append: ' product--odd-media'
+      endif
+  endcase
+-%}
+
+<product-info
+  id="MainProduct-{{ section.id }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+  class="section block section-{{ section.id }} section--padding page-width color-{{ section.settings.color_scheme }}"
+  style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {% unless product.has_only_default_variant %}
+    {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {% endunless %}
+  {%- assign has_models = product.media | where: 'media_type', 'model' | first -%}
+  {%- if has_models -%}
+    <link id="ModelViewerStyle" rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css" media="print" onload="this.media='all'">
+    <link id="ModelViewerOverride" rel="stylesheet" href="{{ 'component-model-viewer-ui.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+  {%- if enable_image_zoom -%}
+    <link id="Photoswipe" rel="stylesheet" href="{{ 'photoswipe-component.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+
+  <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+
+  {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+  <div class="product flex flex-wrap {{ product_class }}">
+    {%- if product.media.size > 0 -%}
+      <motion-element data-motion="fade-up" data-motion-delay="50" class="product__media-wrapper w-full relative">
+        {% render 'product-media-gallery',
+          enable_sticky_info: enable_sticky_info,
+          media_layout: media_layout,
+          mobile_thumbnails: mobile_thumbnails,
+          variant_images: variant_images,
+          enable_image_zoom: enable_image_zoom
+        %}
+      </motion-element>
+    {%- endif -%}
+    <motion-element data-motion="fade-up" data-motion-delay="100" class="block product__info-wrapper w-full">
+      {% render 'prestige-information-blocks', enable_sticky_info: enable_sticky_info, update_browser_history: true, context: 'main-product' %}
+    </motion-element>
+  </div>
+
+  <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
+
+  {%- if enable_image_zoom -%}
+    <script src="{{ 'photoswipe.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if product.media.size > 0 -%}
+    <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if has_models -%}
+    <script type="application/json" id="ProductJSON-{{ product.id }}">
+      {{ product.media | where: 'media_type', 'model' | json }}
+    </script>
+    <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+  {%- endif -%}
+
+  <script type="application/ld+json">
+    {{ product | structured_data }}
+  </script>
+</product-info>
+
+{% schema %}
+{
+  "name": "Prestige Product",
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h1",
+          "options": [
+            { "value": "h3", "label": "Small" },
+            { "value": "h2", "label": "Medium" },
+            { "value": "h1", "label": "Large" },
+            { "value": "hd2", "label": "Extra large" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    },
+    {
+      "type": "inventory",
+      "name": "Inventory status",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "inventory_threshold",
+          "label": "Low inventory threshold",
+          "min": 0, "max": 100, "step": 1, "default": 10
+        },
+        {
+          "type": "checkbox",
+          "id": "show_inventory_quantity",
+          "label": "Show inventory count",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "badges",
+      "name": "Badges and tags",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "label": "Picker type",
+          "default": "button",
+          "options": [
+            { "value": "dropdown", "label": "Dropdown" },
+            { "value": "button", "label": "Buttons / swatches" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "swatch_type",
+          "label": "Swatch display",
+          "default": "variant_image",
+          "options": [
+            { "value": "color_swatch", "label": "Color swatch" },
+            { "value": "variant_image", "label": "Variant image" },
+            { "value": "shopify_swatch", "label": "Shopify swatch" },
+            { "value": "text", "label": "Text" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "circle",
+          "options": [
+            { "value": "standard", "label": "Standard" },
+            { "value": "circle", "label": "Circle" },
+            { "value": "square", "label": "Square" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "button_size",
+          "label": "Swatch size",
+          "min": 20, "max": 128, "step": 2, "default": 60, "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "size_title",
+          "label": "Size option name",
+          "default": "Size"
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_quantity_selector",
+          "label": "Show quantity selector",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Show dynamic checkout button",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift_card_recipient",
+          "label": "Show gift card recipient form",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Collapsible row"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "check-circle",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "check-circle", "label": "Check" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "recycle", "label": "Recycle" },
+            { "value": "package", "label": "Package" },
+            { "value": "star-four", "label": "Star" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "gift", "label": "Gift" }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page"
+        },
+        {
+          "type": "checkbox",
+          "id": "default_open",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
+        }
+      ]
+    },
+    {
+      "type": "prestige_price",
+      "name": "Prestige Price",
+      "limit": 1
+    },
+    {
+      "type": "prestige_shape_picker",
+      "name": "Shape Picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_disclaimer",
+          "label": "Show custom rug disclaimer",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "prestige_buy_buttons",
+      "name": "Prestige Add to Cart",
+      "limit": 1
+    },
+    {
+      "type": "prestige_sample_atc",
+      "name": "Sample Add to Cart",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Order a Sample"
+        },
+        {
+          "type": "text",
+          "id": "sample_note",
+          "label": "Note below button",
+          "default": "Free shipping on samples"
+        }
+      ]
+    },
+    {
+      "type": "fabric_specs",
+      "name": "Fabric Specifications",
+      "limit": 1,
+      "settings": [
+        { "type": "header", "content": "Layout" },
+        { "type": "range", "id": "gap", "label": "Gap between items", "min": 8, "max": 40, "step": 4, "unit": "px", "default": 32 },
+        { "type": "header", "content": "Container style" },
+        { "type": "range", "id": "padding", "label": "Padding", "min": 0, "max": 60, "step": 4, "unit": "px", "default": 16 },
+        { "type": "range", "id": "border_width", "label": "Border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 0 },
+        { "type": "range", "id": "border_radius", "label": "Border radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 0 },
+        { "type": "color", "id": "background_color", "label": "Background", "default": "#f5f5f5" },
+        { "type": "color", "id": "border_color", "label": "Border", "default": "#e0e0e0" },
+        { "type": "header", "content": "Item style" },
+        { "type": "range", "id": "item_padding", "label": "Item padding (vertical)", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 20 },
+        { "type": "range", "id": "item_padding_horizontal", "label": "Item padding (horizontal)", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 20 },
+        { "type": "range", "id": "item_border_width", "label": "Item border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
+        { "type": "color", "id": "item_border_color", "label": "Item border color", "default": "#d0d0d0" },
+        { "type": "range", "id": "item_border_radius", "label": "Item border radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 0 },
+        { "type": "color", "id": "item_background_color", "label": "Item background", "default": "#ffffff" },
+        { "type": "header", "content": "Icons" },
+        { "type": "range", "id": "icon_size", "label": "Icon size", "min": 8, "max": 32, "step": 2, "unit": "px", "default": 10 },
+        { "type": "range", "id": "icon_gap", "label": "Gap from text", "min": 4, "max": 24, "step": 2, "unit": "px", "default": 8 },
+        { "type": "range", "id": "icon_border_width", "label": "Border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
+        { "type": "color", "id": "icon_border_color", "label": "Border color", "default": "#000000" },
+        { "type": "header", "content": "Typography" },
+        { "type": "range", "id": "label_size", "label": "Label size", "min": 10, "max": 20, "step": 1, "unit": "px", "default": 11 },
+        { "type": "select", "id": "label_weight", "label": "Label weight", "options": [{ "value": "400", "label": "Normal" }, { "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" }], "default": "400" },
+        { "type": "select", "id": "label_transform", "label": "Label text case", "options": [{ "value": "none", "label": "Default" }, { "value": "uppercase", "label": "Uppercase" }], "default": "uppercase" },
+        { "type": "color", "id": "label_color", "label": "Label color", "default": "#333333" },
+        { "type": "range", "id": "value_size", "label": "Value size", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 11 },
+        { "type": "select", "id": "value_transform", "label": "Value text case", "options": [{ "value": "none", "label": "Default" }, { "value": "uppercase", "label": "Uppercase" }], "default": "uppercase" },
+        { "type": "color", "id": "value_color", "label": "Value color", "default": "#333333" }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "default": true,
+      "label": "Enable sticky product info"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "label": "Gallery layout",
+      "default": "carousel",
+      "options": [
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "stacked", "label": "Stacked" },
+        { "value": "columns", "label": "2 columns" },
+        { "value": "grid-mix", "label": "Grid" },
+        { "value": "vertical-carousel", "label": "Vertical carousel" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "label": "Image size",
+      "default": "large",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_thumbnails",
+      "label": "Mobile thumbnails",
+      "default": "hide",
+      "options": [
+        { "value": "show", "label": "Show" },
+        { "value": "hide", "label": "Hide" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_zoom",
+      "default": true,
+      "label": "Enable image zoom"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "label": "Padding bottom",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Prestige Product",
+      "blocks": [
+        { "type": "title" },
+        { "type": "prestige_price" },
+        { "type": "variant_picker" },
+        { "type": "prestige_shape_picker" },
+        { "type": "prestige_buy_buttons" },
+        { "type": "prestige_sample_atc" }
+      ]
+    }
+  ]
+}
+{% endschema %}

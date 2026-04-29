@@ -1,0 +1,387 @@
+{% comment %}
+  Prestige Product Configuration Snippet (adapted for Sleek/FoxEcom theme)
+
+  Includes:
+  - Variant picker (Color selection via Sleek's product-variant-picker)
+  - Shape picker with dimension inputs
+  - Rug pad picker
+  - Rug protection picker
+  - Edge style picker
+  - Care instructions
+{% endcomment %}
+
+{%- assign product_form_id = product_form_id | default: 'PrestigeProductForm' -%}
+
+<div class="prestige-product-config">
+  {% comment %} Pricing Configs - Required for price calculations {% endcomment %}
+  {% render 'pricing-configs', product: product %}
+
+  {% comment %} Variant Picker - Color Selection {% endcomment %}
+  {%- unless product.has_only_default_variant -%}
+    <div class="prestige-accordion-section">
+      <details class="prestige-accordion" open>
+        <summary class="prestige-accordion-header">
+          <h3 class="prestige-accordion-title">
+            Color
+            <span class="prestige-selected-value" id="selected-color-display">
+              {{- product.selected_or_first_available_variant.title -}}
+            </span>
+          </h3>
+          <svg
+            class="prestige-accordion-icon"
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="prestige-accordion-content">
+          <div
+            class="prestige-color-swatches"
+            data-section-id="{{ section.id }}"
+          >
+            {%- for option in product.options_with_values -%}
+              {%- liquid
+                assign option_name_downcase = option.name | downcase
+                assign picker_type = 'color'
+                assign color_swatch_trigger = settings.color_swatch_trigger | downcase | split: ','
+                assign has_color = color_swatch_trigger | where: option_name_downcase | first
+                if has_color == blank
+                  assign picker_type = 'button'
+                endif
+              -%}
+              <div class="product-form__input product-form__input--{{ picker_type }} flex flex-wrap gap-3">
+                {% comment %} <span class="form__label">{{ option.name }}</span> {% endcomment %}
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign checked = false
+                    if option.selected_value == value
+                      assign checked = true
+                    endif
+                    assign option_disabled = true
+                    if value.available
+                      assign option_disabled = false
+                    endif
+                  -%}
+                  <input
+                    type="radio"
+                    id="prestige-color-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                    name="prestige-option-{{ option.position }}"
+                    value="{{ value | escape }}"
+                    class="prestige-color-radio"
+                    data-option-position="{{ option.position }}"
+                    data-option-value="{{ value | escape }}"
+                    {% if checked %}checked{% endif %}
+                    {% if option_disabled %}data-unavailable="true"{% endif %}
+                  >
+                  <label
+                    for="prestige-color-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                    class="swatch-input__btn{% if picker_type == 'color' %} swatch-input__btn--color{% endif %}{% if option_disabled %} disabled{% endif %}"
+                    {% if picker_type == 'color' and value.swatch.color != blank %}
+                      style="--swatch-color: {{ value.swatch.color }};"
+                    {% elsif picker_type == 'color' and value.swatch.image != blank %}
+                      style="--swatch-image: url({{ value.swatch.image | image_url: width: 50 }});"
+                    {% endif %}
+                    title="{{ value | escape }}"
+                  >
+                    <span class="visually-hidden">{{ value }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            {%- endfor -%}
+            <script type="application/json" class="prestige-variants-json">
+              {{ product.variants | json }}
+            </script>
+          </div>
+        </div>
+      </details>
+    </div>
+  {%- endunless -%}
+
+  {% comment %} Shape Picker with Dimensions {% endcomment %}
+  <div class="prestige-shape-picker-wrapper">
+    {% render 'prestige-shape-picker',
+      product_form_id: product_form_id,
+      product: product,
+      initial_width: 4,
+      initial_length: 3,
+      initial_diameter: 4
+    %}
+  </div>
+
+  {% comment %} Rug Pad Picker {% endcomment %}
+  <div class="prestige-rug-pad-wrapper">
+    {% render 'prestige-rug-pad-picker', product_form_id: product_form_id %}
+  </div>
+
+  {% comment %} Rug Protection Picker {% endcomment %}
+  <div class="prestige-rug-protection-wrapper">
+    {% render 'prestige-rug-protection-picker', product_form_id: product_form_id %}
+  </div>
+
+  {% comment %} Edge Style Picker {% endcomment %}
+  <div class="prestige-edge-style-wrapper">
+    {% render 'prestige-edge-style-picker', product_form_id: product_form_id, product: product %}
+  </div>
+
+  {% comment %} Care Instructions {% endcomment %}
+  <div class="prestige-care-instructions-section">
+    {% render 'prestige-care-instructions', product: product %}
+  </div>
+
+  {% comment %} Custom Rug Disclaimer {% endcomment %}
+  <p class="prestige-disclaimer caption">
+    *Our Custom Sized rugs are made to your specifications and cannot be cancelled, changed, returned or refunded. Your
+    rug will arrive approximately 4–5 weeks after you place your order. For more information, please see our
+    <a class="link" href="/pages/faq">FAQs</a>
+  </p>
+
+  {% comment %} Hidden inputs for cart properties {% endcomment %}
+  <input
+    type="hidden"
+    name="properties[_parenturl]"
+    form="{{ product_form_id }}"
+    value="{{ request.origin }}{{ product.url }}"
+  >
+  <input type="hidden" name="properties[Size]" id="line-item-size" form="{{ product_form_id }}" value="">
+  <input type="hidden" name="properties[_shape]" id="line-item-shape" form="{{ product_form_id }}" value="">
+  <input type="hidden" name="properties[_width]" id="line-item-width" form="{{ product_form_id }}" value="">
+  <input type="hidden" name="properties[_length]" id="line-item-length" form="{{ product_form_id }}" value="">
+  <input type="hidden" name="properties[_diameter]" id="line-item-diameter" form="{{ product_form_id }}" value="">
+</div>
+
+<style>
+  /* Accordion Styles */
+  .prestige-accordion-section {
+    margin-bottom: 0;
+  }
+
+  .prestige-accordion {
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 0;
+    background-color: #fff;
+    margin-bottom: 0;
+  }
+
+  .prestige-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    margin: 10px 0px;
+  }
+
+  .prestige-accordion-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .prestige-accordion-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .prestige-selected-value {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .prestige-accordion-icon {
+    transition: transform 0.3s ease;
+    color: #666;
+  }
+
+  .prestige-accordion[open] .prestige-accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  .prestige-accordion-content {
+    padding: 0 0 12px 0;
+  }
+
+  .prestige-product-config {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .prestige-disclaimer {
+    font-size: 10px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .prestige-disclaimer a {
+    text-decoration: underline;
+    color: #666;
+  }
+
+  /* Swatch styles inside prestige accordion */
+  .prestige-accordion-content .swatch-input__btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    display: block;
+    position: relative;
+  }
+
+  .prestige-accordion-content .swatch-input__btn--color {
+    background-color: var(--swatch-color, #ccc);
+    background-image: var(--swatch-image, none);
+  }
+
+  .prestige-accordion-content input[type="radio"]:checked + .swatch-input__btn {
+    border: 2px solid #000;
+  }
+
+  .prestige-accordion-content input[type="radio"] {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .prestige-product-config {
+      gap: 20px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    function updateColorDisplay() {
+      const colorDisplay = document.getElementById('selected-color-display');
+      if (!colorDisplay) return;
+      const checkedInput = document.querySelector('.prestige-color-radio:checked');
+      if (checkedInput) {
+        colorDisplay.textContent = checkedInput.value;
+      }
+    }
+
+    function updateMediaGallery(selectedOptions) {
+      const variantsEl = document.querySelector('.prestige-variants-json');
+      if (!variantsEl) return;
+      let variants;
+      try { variants = JSON.parse(variantsEl.textContent); } catch (e) { return; }
+
+      // Find first variant where all selected option values match
+      const matchingVariant = variants.find(function (v) {
+        return selectedOptions.every(function (opt) {
+          return v['option' + opt.position] === opt.value;
+        });
+      }) || variants[0];
+
+      if (!matchingVariant) return;
+
+      // Update hidden variant id input in buy form
+      const variantIdInput = document.querySelector('.form-data-variant-id');
+      if (variantIdInput) variantIdInput.value = matchingVariant.id;
+
+      // Update media gallery
+      const sectionEl = document.querySelector('.prestige-color-swatches');
+      const sectionId = sectionEl ? sectionEl.dataset.sectionId : null;
+      if (!sectionId) return;
+
+      const mediaGallery = document.querySelector('[id^="MediaGallery-' + sectionId + '"]');
+      if (mediaGallery && typeof mediaGallery.setActiveMedia === 'function') {
+        mediaGallery.setActiveMedia(matchingVariant);
+      }
+    }
+
+    function getSelectedOptions() {
+      const options = [];
+      document.querySelectorAll('.prestige-color-swatches .product-form__input').forEach(function (group) {
+        const checked = group.querySelector('.prestige-color-radio:checked');
+        if (checked) {
+          options.push({
+            position: parseInt(checked.dataset.optionPosition, 10),
+            value: checked.value
+          });
+        }
+      });
+      return options;
+    }
+
+    function onColorChange() {
+      updateColorDisplay();
+      updateMediaGallery(getSelectedOptions());
+
+      // Reset shape picker to rectangular default
+      const rectangularRadio = document.querySelector('input[name="shape"][value="Rectangular"]');
+      if (rectangularRadio) {
+        rectangularRadio.checked = true;
+        rectangularRadio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+
+      const lengthSelect = document.getElementById('LengthSelect');
+      const lengthInchSelect = document.getElementById('LengthInchSelect');
+      const widthSelect = document.getElementById('WidthSelect');
+      const widthInchSelect = document.getElementById('WidthInchSelect');
+      if (lengthSelect) lengthSelect.value = '4';
+      if (lengthInchSelect) lengthInchSelect.value = '0';
+      if (widthSelect) widthSelect.value = '3';
+      if (widthInchSelect) widthInchSelect.value = '0';
+      if (widthInchSelect) widthInchSelect.dispatchEvent(new Event('change', { bubbles: true }));
+
+      // Reset rug pad to None
+      document.querySelectorAll('.rug-pad-radio').forEach(function (r) {
+        r.checked = false;
+        r.closest('.rug-pad-option')?.classList.remove('active');
+      });
+      const rugPadNone = document.querySelector('.rug-pad-radio[value="none"]');
+      if (rugPadNone) {
+        rugPadNone.checked = true;
+        rugPadNone.closest('.rug-pad-option')?.classList.add('active');
+      }
+      const rugPadValue = document.getElementById('value-of-type');
+      if (rugPadValue) rugPadValue.textContent = ': None';
+      const rugPadInput = document.querySelector('input[name="properties[Rug Pad]"]');
+      if (rugPadInput) rugPadInput.value = 'None';
+      const rugPadHandler = document.querySelector('input[name="properties[_padhandler]"]');
+      if (rugPadHandler) rugPadHandler.value = 'none';
+
+      // Reset rug protection to None
+      document.querySelectorAll('.rug-protection-radio').forEach(function (r) {
+        r.checked = false;
+        r.closest('.rug-protection-option')?.classList.remove('active');
+      });
+      const rugProtectionNone = document.querySelector('.rug-protection-radio[value="none"]');
+      if (rugProtectionNone) {
+        rugProtectionNone.checked = true;
+        rugProtectionNone.closest('.rug-protection-option')?.classList.add('active');
+      }
+      const rugProtectionValue = document.getElementById('value-of-protection-type');
+      if (rugProtectionValue) rugProtectionValue.textContent = ': None';
+      const rugProtectionInput = document.querySelector('input[name="properties[Rug Protection]"]');
+      if (rugProtectionInput) rugProtectionInput.value = 'None';
+      const rugProtectionHandler = document.querySelector('input[name="properties[_protectionhandler]"]');
+      if (rugProtectionHandler) rugProtectionHandler.value = 'none';
+    }
+
+    // Initialize
+    updateColorDisplay();
+    updateMediaGallery(getSelectedOptions());
+
+    // Listen for color swatch changes
+    document.addEventListener('change', function (e) {
+      if (e.target.matches('.prestige-color-radio')) {
+        onColorChange();
+      }
+    });
+  });
+</script>

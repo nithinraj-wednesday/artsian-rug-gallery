@@ -1,0 +1,385 @@
+{% comment %}
+  Prestige Information Blocks — extends product-information-blocks with
+  prestige_price, prestige_shape_picker, prestige_buy_buttons, prestige_sample_atc
+  block types. Delegates all standard block rendering to the original logic.
+{% endcomment %}
+
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign prestige_form_id = 'PrestigeProductForm-' | append: section.id
+-%}
+<div
+  id="ProductInfo-{{ section.id }}"
+  data-section="{{ section.id }}"
+  data-url="{{ product.url }}"
+  class="product__info-container{% if enable_sticky_info %} sticky-element{% endif %}"
+>
+  <div class="product__blocks accordion-parent">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when '@app' -%}
+          <div class="product__block product__block--app">
+            {% render block %}
+          </div>
+
+        {%- when 'text' -%}
+          <div class="product__block rte product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            <p class="product__text inline-richtext m-0{% if block.settings.text_style == 'uppercase' %} text-upper{% elsif block.settings.text_style == 'subtitle' %} text-upper text-subtext{% endif %}">
+              {{- block.settings.text -}}
+            </p>
+          </div>
+
+        {%- when 'title' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            {% if context == 'main-product' %}
+              <h1 class="product__title {{ block.settings.heading_size }}">{{ product.title | escape }}</h1>
+            {% else %}
+              <h2 class="product__title {{ block.settings.heading_size }}">
+                <a href="{{ product.url }}">{{ product.title | escape }}</a>
+              </h2>
+            {% endif %}
+          </div>
+
+        {%- when 'price' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            <div id="price-{{ section.id }}" role="status">
+              {%- render 'price', product: product, use_variant: true, show_sale_badge: false, price_class: 'f-price--large' -%}
+            </div>
+            {%- if product.quantity_price_breaks_configured? -%}
+              <div class="volume-pricing-note" id="VolumeNote-{{ section.id }}">
+                <span class="text-sm text-subtext">{{ 'products.product.volume_pricing.note' | t }}</span>
+              </div>
+            {%- endif -%}
+            <div class="product__tax rte">
+              {%- if cart.taxes_included -%}{{ 'products.product.include_taxes' | t }}{%- endif -%}
+              {%- if shop.shipping_policy.body != blank -%}
+                {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+              {%- endif -%}
+            </div>
+            {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+            {%- form 'product', product, id: product_form_installment_id, class: 'installment' -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              {{ form | payment_terms }}
+            {%- endform -%}
+          </div>
+
+        {%- when 'inventory' -%}
+          <div
+            class="product__block product__block--{{ block.type }}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} hidden{% endif %}"
+            {{ block.shopify_attributes }}
+            id="Inventory-{{ section.id }}"
+            role="status"
+          >
+            {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+              {%- liquid
+                assign inventory_quantity = product.selected_or_first_available_variant.inventory_quantity
+                if inventory_quantity > 0
+                  if inventory_quantity <= block.settings.inventory_threshold
+                    assign inventory_status = 'low-stock'
+                    if block.settings.show_inventory_quantity
+                      if inventory_quantity == 1
+                        assign inventory_message = 'products.product.inventory_low_stock_one_item_html' | t: quantity: inventory_quantity
+                      else
+                        assign inventory_message = 'products.product.inventory_low_stock_many_items_html' | t: quantity: inventory_quantity
+                      endif
+                    else
+                      assign inventory_message = 'products.product.inventory_low_stock' | t
+                    endif
+                  else
+                    assign inventory_status = 'in-stock'
+                    assign inventory_message = 'products.product.inventory_in_stock' | t
+                  endif
+                else
+                  if product.selected_or_first_available_variant.inventory_policy == 'continue'
+                    assign inventory_status = 'in-stock'
+                    assign inventory_message = 'products.product.inventory_out_of_stock_continue_selling' | t
+                  else
+                    assign inventory_status = 'out-of-stock'
+                    assign inventory_message = 'products.product.inventory_out_of_stock' | t
+                  endif
+                endif
+              %}
+              <p class="product__inventory product__inventory--{{ inventory_status }}">
+                <span class="product__inventory-icon"></span>
+                <span class="product__inventory-text">{{- inventory_message -}}</span>
+              </p>
+            {%- endif -%}
+          </div>
+
+        {%- when 'description' -%}
+          {%- if product.description != blank -%}
+            <div class="product__block product__block--{{ block.type }} rte" {{ block.shopify_attributes }}>
+              {{ product.description }}
+            </div>
+          {%- endif -%}
+
+        {%- when 'sku' -%}
+          <div
+            class="product__block product__block--{{ block.type }}{% if product.selected_or_first_available_variant.sku.size == 0 %} hidden{% endif %}"
+            id="Sku-{{ section.id }}"
+            {{ block.shopify_attributes }}
+          >
+            <p class="product__sku" role="status">
+              <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span>
+              {{- product.selected_or_first_available_variant.sku -}}
+            </p>
+          </div>
+
+        {%- when 'badges' -%}
+          <div
+            class="product__block product__block--{{ block.type }} product__badges flex flex-wrap items-center"
+            id="Badges-{{ section.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- render 'product-badges', block: block, product: product, section_id: section.id -%}
+          </div>
+
+        {%- when 'custom_liquid' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            {{ block.settings.custom_liquid }}
+          </div>
+
+        {%- when 'collapsible_tab' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            <details
+              id="Details-{{ block.id }}-{{ section.id }}"
+              class="accordion-details"
+              is="accordion-group"
+              {% if block.settings.default_open %}open aria-expanded="true"{% else %}aria-expanded="false"{% endif %}
+            >
+              <summary class="accordion-details__summary flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  {% render 'icons', icon: block.settings.icon %}
+                  <h2 class="h4 inline-richtext">
+                    {{ block.settings.heading | default: block.settings.page.title | escape }}
+                  </h2>
+                </div>
+                {%- render 'icon-plus-toggle' -%}
+              </summary>
+              <div class="accordion-details__content rte">
+                {{ block.settings.content }}
+                {{ block.settings.custom_liquid }}
+                {{ block.settings.page.content }}
+              </div>
+            </details>
+          </div>
+
+        {%- when 'popup' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            <button class="btn--underline" aria-controls="PopupModal-{{ block.id }}" aria-haspopup="dialog">
+              {{ block.settings.text | default: block.settings.page.title | escape }}
+            </button>
+            <basic-modal id="PopupModal-{{ block.id }}" class="drawer modal" style="--modal-width: 77rem;">
+              <div class="fixed-overlay" aria-controls="PopupModal-{{ block.id }}"></div>
+              <div class="drawer__inner">
+                <button class="drawer__close-btn" aria-controls="PopupModal-{{ block.id }}" aria-label="{{ 'accessibility.close' | t }}">
+                  {% render 'icon-close' %}
+                </button>
+                <div class="drawer__body v-scrollable h-full">
+                  <h1 class="h2">{{ block.settings.page.title | escape }}</h1>
+                  {{ block.settings.page.content }}
+                </div>
+              </div>
+            </basic-modal>
+          </div>
+
+        {%- when 'variant_picker' -%}
+          {%- unless product.has_only_default_variant -%}
+            <style>
+              .prestige-color-accordion .form__label { display: none; }
+              .prestige-color-accordion .product-form__input--color { gap: 0; padding: 0.8rem 0.2rem; align-items: center; }
+              .prestige-color-accordion .product-form__input--color label { display: inline-flex; align-items: center; justify-content: flex-end; padding: 0.8rem; box-sizing: content-box; width: calc(var(--swatch-size) - 0.2rem); height: calc(var(--swatch-size) - 0.2rem); }
+              .prestige-color-accordion .product-form__input--color .swatch-color { overflow: visible; flex-shrink: 0; }
+            </style>
+            <div class="product__block product__block--{{ block.type }} prestige-accordion-section prestige-color-accordion" {{ block.shopify_attributes }}>
+              <details class="prestige-accordion" open>
+                <summary class="prestige-accordion-header">
+                  <h3 class="prestige-accordion-title">
+                    Color
+                    <span class="prestige-selected-value" id="selected-color-display">
+                      {%- assign first_color_option = product.options_with_values | where: 'name', 'Color' | first -%}
+                      {%- if first_color_option -%}
+                        {{- first_color_option.selected_value -}}
+                      {%- else -%}
+                        {{- product.selected_or_first_available_variant.title -}}
+                      {%- endif -%}
+                    </span>
+                  </h3>
+                  <svg
+                    class="prestige-accordion-icon"
+                    width="12"
+                    height="8"
+                    viewBox="0 0 12 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </summary>
+                <div class="prestige-accordion-content">
+                  {% render 'product-variant-picker',
+                    product: product,
+                    block: block,
+                    product_form_id: product_form_id,
+                    update_url: update_browser_history
+                  %}
+                </div>
+              </details>
+            </div>
+          {%- endunless -%}
+
+        {%- when 'buy_buttons' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            {%- render 'buy-buttons',
+              block: block,
+              product: product,
+              product_form_id: product_form_id,
+              section_id: section.id,
+              product_id: product.id
+            -%}
+          </div>
+
+        {%- when 'pickup_availability' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            {%- render 'product-pickup-availability', product: product -%}
+          </div>
+
+        {%- when 'addons' -%}
+          {%- if block.settings.show_share or block.settings.show_ask_question -%}
+            <div class="product__block product__block--{{ block.type }} flex items-center" {{ block.shopify_attributes }}>
+              {%- if block.settings.show_share -%}
+                <script src="{{ 'product-share.js' | asset_url }}" defer="defer"></script>
+                {%- liquid
+                  assign share_modal_id = 'PopupModal-Sharing-' | append: section.id
+                  assign share_url = product.selected_or_first_available_variant.url | default: product.url | prepend: request.origin
+                -%}
+                <button class="btn btn--with-icon btn--plain" aria-controls="{{ share_modal_id }}" aria-haspopup="dialog">
+                  {{ 'products.product.share_label' | t }}
+                </button>
+                <basic-modal id="{{ share_modal_id }}" class="drawer modal">
+                  <div class="fixed-overlay" aria-controls="{{ share_modal_id }}"></div>
+                  <div class="drawer__inner">
+                    <button class="drawer__close-btn" aria-controls="{{ share_modal_id }}" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
+                    <div class="drawer__body v-scrollable h-full">
+                      <div class="product__sharing">
+                        <h3 class="product__sharing--title h5">{{ 'products.product.share' | t }}</h3>
+                        <product-share class="product__sharing--inputs" id="ProductShare-{{ section.id }}">
+                          <input id="ProductShare-input-{{ section.id }}" type="text" class="form-control" value="{{ share_url }}" readonly>
+                          <button class="btn btn-copy" data-copied-text="{{ 'general.share.copied' | t }}">{{ 'general.share.copy' | t }}</button>
+                        </product-share>
+                        {% render 'social-sharing', url: product.url, share_image: product.featured_media.preview_image %}
+                      </div>
+                    </div>
+                  </div>
+                </basic-modal>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+        {%- when 'icon-with-text' -%}
+          <div class="product__block product__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            {% render 'icon-with-text',
+              layout: block.settings.layout,
+              title_size: block.settings.title_size,
+              title_font: block.settings.title_font,
+              heading_1: block.settings.heading_1,
+              image_1: block.settings.image_1,
+              icon_1: block.settings.icon_1,
+              heading_2: block.settings.heading_2,
+              image_2: block.settings.image_2,
+              icon_2: block.settings.icon_2,
+              heading_3: block.settings.heading_3,
+              image_3: block.settings.image_3,
+              icon_3: block.settings.icon_3
+            %}
+          </div>
+
+        {% comment %} ─── PRESTIGE BLOCKS ─── {% endcomment %}
+
+        {%- when 'prestige_price' -%}
+          <div class="product__block product__block--prestige-price" {{ block.shopify_attributes }}>
+            {% render 'prestige-price', product: product %}
+          </div>
+
+        {%- when 'prestige_shape_picker' -%}
+          <div class="product__block product__block--prestige-shape-picker" {{ block.shopify_attributes }}>
+            {% render 'pricing-configs', product: product %}
+
+            <div class="prestige-shape-picker-wrapper">
+              {% render 'prestige-shape-picker',
+                product_form_id: prestige_form_id,
+                product: product,
+                initial_width: 4,
+                initial_length: 3,
+                initial_diameter: 4
+              %}
+            </div>
+
+            <div class="prestige-rug-pad-wrapper">
+              {% render 'prestige-rug-pad-picker', product_form_id: prestige_form_id %}
+            </div>
+
+            <div class="prestige-rug-protection-wrapper">
+              {% render 'prestige-rug-protection-picker', product_form_id: prestige_form_id %}
+            </div>
+
+            <div class="prestige-edge-style-wrapper">
+              {% render 'prestige-edge-style-picker', product_form_id: prestige_form_id, product: product %}
+            </div>
+
+            <div class="prestige-care-instructions-section">
+              {% render 'prestige-care-instructions', product: product %}
+            </div>
+
+            {% if block.settings.show_disclaimer %}
+              <p class="prestige-disclaimer caption" style="font-size:10px;color:#666;line-height:1.5;margin-top:12px;">
+                *Our Custom Sized rugs are made to your specifications and cannot be cancelled, changed, returned or refunded.
+                Your rug will arrive approximately 4–5 weeks after you place your order.
+                For more information, please see our <a class="link" href="/pages/faq">FAQs</a>.
+              </p>
+            {% endif %}
+
+            {%- comment -%} Hidden cart property inputs scoped to the prestige form {%- endcomment -%}
+            <input type="hidden" name="properties[_parenturl]" form="{{ prestige_form_id }}" value="{{ request.origin }}{{ product.url }}">
+            <input type="hidden" name="properties[Size]" id="line-item-size" form="{{ prestige_form_id }}" value="">
+            <input type="hidden" name="properties[_shape]" id="line-item-shape" form="{{ prestige_form_id }}" value="">
+            <input type="hidden" name="properties[_width]" id="line-item-width" form="{{ prestige_form_id }}" value="">
+            <input type="hidden" name="properties[_length]" id="line-item-length" form="{{ prestige_form_id }}" value="">
+            <input type="hidden" name="properties[_diameter]" id="line-item-diameter" form="{{ prestige_form_id }}" value="">
+          </div>
+
+        {%- when 'prestige_buy_buttons' -%}
+          <div class="product__block product__block--prestige-buy-buttons" {{ block.shopify_attributes }}>
+            {% render 'prestige-buy-buttons', product: product %}
+          </div>
+
+        {%- when 'prestige_sample_atc' -%}
+          <div class="product__block product__block--prestige-sample-atc" {{ block.shopify_attributes }}>
+            {% render 'prestige-sample-atc',
+              product: product,
+              block: block,
+              product_form_id: product_form_id
+            %}
+          </div>
+
+        {%- when 'fabric_specs' -%}
+          <div class="product__block product__block--fabric-specs" {{ block.shopify_attributes }}>
+            {% render 'prestige-fabric-specs', block: block, product: product %}
+          </div>
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('variant:changed', function (e) {
+    const variant = e.detail?.variant;
+    if (!variant) return;
+    const colorDisplay = document.getElementById('selected-color-display');
+    if (colorDisplay && variant.option1) {
+      colorDisplay.textContent = variant.option1;
+    }
+  });
+</script>

@@ -1,0 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "hero": {
+      "type": "image-with-text-overlay",
+      "settings": {
+        "overlay_opacity": 40,
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Become a Designer",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Are you an interior designer, architect, or stylist? Join our trade program and access exclusive benefits, pricing, and support for your projects.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "benefits": {
+      "type": "multicolumn",
+      "blocks": {
+        "col_pricing": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Trade Pricing",
+            "heading_size": "h3",
+            "text": "<p>Access exclusive trade discounts across our full range of custom rugs and accessories.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "col_support": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Dedicated Support",
+            "heading_size": "h3",
+            "text": "<p>A dedicated account manager to help you specify, sample, and deliver on every project.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "col_samples": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Free Samples",
+            "heading_size": "h3",
+            "text": "<p>Order as many samples as you need — free of charge — to present to your clients with confidence.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "col_custom": {
+          "type": "column",
+          "settings": {
+            "show_image": false,
+            "title": "Custom Capabilities",
+            "heading_size": "h3",
+            "text": "<p>Any size, any shape, any edge. Our production team works directly with designers on bespoke requirements.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "col_pricing",
+        "col_support",
+        "col_samples",
+        "col_custom"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "heading": "Why join our trade program?",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "center",
+        "columns_desktop": 4,
+        "column_gap": "large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "how_to_join": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "How to Apply",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fill in the application form below with your business details. Our team will review your application and be in touch within 2 business days.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "color_scheme": "",
+        "heading": "",
+        "padding_top": 0,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "hero",
+    "intro",
+    "benefits",
+    "how_to_join",
+    "form"
+  ]
+}

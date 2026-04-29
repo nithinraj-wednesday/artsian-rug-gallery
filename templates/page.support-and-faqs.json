@@ -1,0 +1,324 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "start"
+      }
+    },
+    "hero": {
+      "type": "image-with-text-overlay",
+      "settings": {
+        "overlay_opacity": 30,
+        "color_scheme": "scheme-1",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Support & FAQs",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Have a question? Browse our most frequently asked questions below or reach out to our team directly.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "faq_ordering": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "header_ordering": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ordering",
+            "heading_size": "h2",
+            "sub_heading": ""
+          }
+        },
+        "item_how_order": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How do I place an order?",
+            "content": "<p>Select your rug, choose your size and colour, then add to cart and proceed to checkout. For custom sizes, use the size configurator on the product page.</p>",
+            "open": true
+          }
+        },
+        "item_custom": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Can I order a custom size?",
+            "content": "<p>Yes! All our rugs can be ordered in a custom size. Use the shape and size picker on the product page to enter your exact dimensions.</p>",
+            "open": false
+          }
+        },
+        "item_sample": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Can I order a sample first?",
+            "content": "<p>Absolutely. We offer free fabric samples so you can check the colour and texture before ordering your full rug. Click 'Order a Sample' on any product page.</p>",
+            "open": false
+          }
+        },
+        "item_cancel": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Can I cancel or modify my order?",
+            "content": "<p>Standard orders can be cancelled or modified within 24 hours of placing them. Custom-sized orders cannot be cancelled or changed once placed, as they go into production immediately.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "header_ordering",
+        "item_how_order",
+        "item_custom",
+        "item_sample",
+        "item_cancel"
+      ],
+      "settings": {
+        "container": "narrow",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h3",
+        "item_icon_size": "extra-large",
+        "padding_top": 60,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "faq_delivery": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "header_delivery": {
+          "type": "heading",
+          "settings": {
+            "heading": "Delivery",
+            "heading_size": "h2",
+            "sub_heading": ""
+          }
+        },
+        "item_delivery_time": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How long does delivery take?",
+            "content": "<p>Standard rugs ship within 3–5 business days. Custom-sized rugs are made to order and take approximately 4–5 weeks from the date of order.</p>",
+            "open": false
+          }
+        },
+        "item_track": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How do I track my order?",
+            "content": "<p>Once your order has shipped, you'll receive a tracking number by email. You can also log into your account to view order status.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "header_delivery",
+        "item_delivery_time",
+        "item_track"
+      ],
+      "settings": {
+        "container": "narrow",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h3",
+        "item_icon_size": "extra-large",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "faq_products": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "header_product": {
+          "type": "heading",
+          "settings": {
+            "heading": "Products",
+            "heading_size": "h2",
+            "sub_heading": ""
+          }
+        },
+        "item_care": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How do I care for my rug?",
+            "content": "<p>Vacuum regularly on a low setting, blot spills immediately, and rotate every 6–12 months for even wear. See our full <a href='/pages/rug-care'>Rug Care Guide</a> for detailed instructions.</p>",
+            "open": false
+          }
+        },
+        "item_materials": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "What materials are available?",
+            "content": "<p>We offer rugs in wool, viscose, cotton, jute, sisal, and synthetic fibres. Visit our <a href='/pages/rug-materials'>Materials Guide</a> to learn more about each option.</p>",
+            "open": false
+          }
+        },
+        "item_pad": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Do I need a rug pad?",
+            "content": "<p>We highly recommend using a rug pad. It prevents slipping, protects your floor, adds cushioning underfoot, and extends the life of your rug. Add one when you order your rug.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "header_product",
+        "item_care",
+        "item_materials",
+        "item_pad"
+      ],
+      "settings": {
+        "container": "narrow",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h3",
+        "item_icon_size": "extra-large",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "contact_cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Still need help?",
+            "heading_size": "h2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Shoot our team an email and we'll get back to you as soon as possible.<br/>Support hours: Monday–Friday, 9am–5pm AEST</p>",
+            "text_size": "text-base"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact Us",
+            "button_link": "/pages/contact",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "hero",
+    "intro",
+    "faq_ordering",
+    "faq_delivery",
+    "faq_products",
+    "contact_cta"
+  ]
+}
